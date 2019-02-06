@@ -1,0 +1,32 @@
+var _ = require("modules/underscore/underscore.js")._;
+
+function format(data){
+    var result = {};
+    for(var index = 0; index < data.length; index++ ){
+        var datum = data[index];
+        if(result[datum.id] == null){
+            result[datum.id] = {
+                "0": [],
+                "order": ["0"],
+                "source":"simulator"
+            };
+        }
+        var point = _.mapObject(datum, function(value, key){ return {"value": value}; });
+        if(point.creationDate == null)  point.creationDate = {"value": (new Date()).toISOString()};
+        result[datum.id]["0"].push(point)
+    }
+    return result;
+}
+
+/**
+* 
+* @function executeDecisionTable
+* @param {Object} [payload] the data to be processed 
+* @param {String} [decisionTable] the name of the table to be executed
+* @return {Object} the decision table result
+*
+*/
+function executeDecisionTable(decisionTable, payload){
+    var sdtLibScript = require("m/scriptUtil");
+    return sdtLibScript.execute(decisionTable, {"payload": JSON.stringify(payload)});
+}

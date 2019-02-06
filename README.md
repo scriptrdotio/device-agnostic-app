@@ -1,2 +1,2 @@
-# iot01a-app
-STM32 IoT Discovery Node Dev Kit - Future Electronics
+# nebula20-app
+Smart Kitchens Sample Demo for a nebula 2.0 board

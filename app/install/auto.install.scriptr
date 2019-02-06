@@ -1,0 +1,115 @@
+var responseObject = {};
+var channels = require("channel");
+var devices = require("device");
+var groups = require("group");
+
+
+/** Setup account default domain if none is set **/
+var subdomain = request.account.accountKey;
+var params = {
+    "apsdb.name": subdomain
+}
+
+var step = apsdb.callApi("SaveSubdomain", params, null); 
+responseObject["subdomainCreation_"+subdomain] = JSON.stringify(step)
+
+
+/** Create a group editor that allows its users to access the scriptr ide plugins, ex: decision table **/
+var editorGroup = "editor";
+var step2 = groups.create(editorGroup);
+responseObject["groupCreation_"+editorGroup] = JSON.stringify(step2);
+
+
+/**
+	Create groups and a channels with subscribeACL & publishACL set to the created group 
+**/
+var groupsList = ["scriptrio"];
+groupsList.forEach(function(name) {
+   	var step3 = groups.create(name);
+   	responseObject["groupCreation_"+name] = JSON.stringify(step3);
+    var subAcl = "group:".concat(name);
+    var pubAcl = "group:".concat(name);
+ 	var params = {"name" :"responseChannel_"+name, "subscribeACL": [subAcl],"publishACL":  [pubAcl]};
+	var step4 = apsdb.callApi("SaveChannel", params , null )
+   	responseObject["channelCreation_"+params.name] = JSON.stringify(step4)
+});
+
+
+/** Create Anonymous publish channel used to receive requests from browser **/
+var channelsList =  ["requestChannel"];
+var options = {
+  "subscribeACL": "anonymous",
+  "publishACL": "anonymous"
+}
+
+channelsList.forEach(function(channel) {
+   var step5 = channels.create(channel, options);
+   responseObject["channelCreation_"+channel] = JSON.stringify(step5)
+});
+
+
+var devicesList = [
+    {//Device used to login to smart kitchen app
+        "id":"demo",
+        "password" : "demo",
+        "name" : "demo",
+        "groups": ["scriptrio","editor"]
+    },
+    { //This device is used by to authenticate the mqtt bridge
+        "id":"nebula20",
+        "password" : "demo",
+        "name" : "nebula20",
+        "groups": ["scriptrio"]
+    }
+];
+
+devicesList.forEach(function(params) {
+   	var step6= devices.save(params);
+    responseObject["deviceCreation_"+params.id] = JSON.stringify(step6);
+
+    var step7= devices.generateToken(params.id);
+    responseObject["deviceToken_"+params.id] = JSON.stringify(step7);
+});
+
+
+//Create the channel used by the mqtt bridge between scriptr and ibm bluemix
+var channelsList =  ["nebulaDigest"];
+var params = {"name" : "nebulaDigest", "subscribeACL": ["nebula20"],"publishACL":  ["nebula20"]};
+var step6 = apsdb.callApi("SaveChannel", params , null )
+responseObject["channelCreation_"+params.name] = JSON.stringify(step6);
+
+//Setup the mqtt connection instance (ibm free tier)
+var params = {
+    'name': 'nebula20',
+    'protocol': 'mqtt',
+    'url':'quickstart.messaging.internetofthings.ibmcloud.com',
+    'topic': 'iot-2/type/nebula20/id/nebula20'+request.account.accountKey+'/evt/+/fmt/json',
+    'clientId': 'a:quickstart:scriptr-'+request.account.accountKey
+    
+}
+var response = apsdb.callApi("SaveExternalEndpointConfiguration", params, null);
+responseObject["createMqttExternalEndPoint"] = JSON.stringify(response);
+
+
+//Link the bridge to the channel for publishing messages
+//The free trial if not activated yet can be activated by going to channels and clicking on bridges under any channel and clicking on free trial button
+var params = {
+    "channel": "nebulaDigest",
+    "externalEndpointConfiguration":"nebula20",
+    "auth_token": devices.get("nebula20").result["auth_token"]
+}
+var response = apsdb.callApi("AddBridge", params, null);
+responseObject["AddBridge"] = JSON.stringify(response);
+
+
+
+var pubsub = require("pubsub");
+var topic = pubsub.getInstance("nebulaDigest");
+var response = topic.subscribe("app/api/subscription/subscriber", "script");
+responseObject["subscribeScriptToChannel"] = JSON.stringify(response);
+
+//Set a scheduler to cleanup events
+var scheduleCleanup = schedule("app/cleanup/devicesEvents", "5 * * * ?");
+responseObject["scheduleCleanup"] = JSON.stringify(scheduleCleanup);
+
+return responseObject;

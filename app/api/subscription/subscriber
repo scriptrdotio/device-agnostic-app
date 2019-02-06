@@ -1,0 +1,59 @@
+var log = require("log"); 
+log.setLevel("info");
+
+var devices = require("device");
+
+var _ = require("modules/underscore/underscore.js")._;
+
+var deviceManager = require("app/entities/deviceManager");
+var deviceEvaluator = require("app/entities/deviceEvaluator");
+var devicePublisher = require("app/entities/devicePublisher");
+
+var config = require("app/config/config");
+
+
+var deviceMapper = require(config.mapper);
+var data = {};
+var deviceId = null;
+var dataMapping = {};
+
+if(request.user.id == "nebula20") {
+    var body = request.body ? request.body : request.rawBody;
+  	data = typeof(data) == "string" ? JSON.parse(body).d : body.d;
+    data = deviceMapper.mapIt(data);
+    deviceId = data.id; //It should come from the message
+} else {
+    return;
+}
+
+log.info("[app/api/subscription/subscriber] received the following payload \n" + JSON.stringify(data));
+
+try {
+    var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
+    log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
+    if(deviceDefinition == null) {
+        var deviceDefinition = {};
+        deviceDefinition = config.nebulaDataTopUp[deviceId];
+        deviceDefinition.id = deviceDefinition.name = deviceId;
+        deviceDefinition = deviceManager.buildDeviceDefinitionDocument(deviceDefinition);
+        //Save device definition
+        log.info("[app/api/subscription/subscriber] Creating Device Definition: "+JSON.stringify(deviceDefinition))
+        var result = deviceManager.saveDeviceDefinition(deviceDefinition);
+    }
+    var entry = {};
+    entry = deviceManager.buildDeviceEventDocument(deviceDefinition, data);
+	log.info("[app/api/subscription/subscriber] Processing Event Entry: " + JSON.stringify(entry))	
+    return processEntry(entry);
+}catch(exception) {
+    log.info("Exception: "+JSON.stringify(exception))
+	return exception;    
+}
+
+function processEntry(entry) {
+    deviceEvaluator.evaluateDevice(entry)
+    deviceManager.saveDeviceEvent(entry);
+    devicePublisher.publishDevice(entry);
+}
+
+
+
