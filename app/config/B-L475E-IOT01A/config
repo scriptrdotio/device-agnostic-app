@@ -4,17 +4,17 @@ var mapper = "app/config/dataTransformation"
 var businessRuleScript = "app/entities/rules/decisionTable";
 
 var deviceDataTopUp =  {
-    "01-01-01-01-01-01-01-01": {
-        "lat": 45.5307159, 
-        "long": -73.8373892,
-        "address": "Little Feet Meadow",
+    "myDevice": {
+        "lat": 45.5602805, 
+        "long": -73.8521324,
+        "address": "Freedom Tower",
         "city": "Montreal",
         "country": "Canada",
-        "locationType": "Ranch",
-        "locationSection": "Cattle",
-        "physicalEnvironment": "Cow",
-        "sensor": "B-L072Z-LRWAN1",
-        "source": "B-L072Z-LRWAN1"
+        "locationType": "Industrial",
+        "locationSection": "kitchen",
+        "physicalEnvironment": "Fridge",
+        "sensor": "nebula-2.0",
+        "source": "nebula20"
     }
 }	
 

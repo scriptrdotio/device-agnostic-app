@@ -9,8 +9,8 @@ var publishChannel = "responseChannel"
 
 function publishDevice(entry){
     log.info("[app/entities/devicepublisher] Publish entry: "+JSON.stringify(entry))
-	publishMapData(channel, entry);
-    publishDashboardData(channel, entry)
+	publishMapData(publishChannel, entry);
+    publishDashboardData(publishChannel, entry)
 }
 
 function publishDashboardData(channel, entry) {

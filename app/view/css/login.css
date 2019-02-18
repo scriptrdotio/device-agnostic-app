@@ -1,10 +1,6 @@
 body {
     font-family: 'texgyreherosregular'; 
     color: #5d5d5d; 
-    background-image: url("//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/kitchen-bg.jpg"); 
-    background-repeat: no-repeat; 
-    background-size: cover; 
-    background-position: bottom;
 }
 
 @font-face {

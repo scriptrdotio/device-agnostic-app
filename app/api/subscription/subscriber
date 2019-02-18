@@ -27,7 +27,7 @@ if(request.user.id == "myDevice") {
 }
 
 log.info("[app/api/subscription/subscriber] received the following payload \n" + JSON.stringify(data));
-
+log.info("[app/api/subscription/subscriber] deviceId \n" + data.id);
 try {
     var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
     log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))

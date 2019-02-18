@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="myAppCtrl as vm" ng-cloak>
   <head>
     <meta charset="utf-8">
-    <title>Smart Kitchens</title>
+    <title ng-bind-html="vm.appTitle">Scriptr.io | Devices IOT App</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
       
     <!-- CSS -->  
@@ -104,9 +104,13 @@
          return $window._; // assumes underscore has already been loaded on the page		
        }]);
 
+      angular.module('myApp').controller('myAppCtrl', function($scope, constants, $sce) {
+    	var vm = this;  
+        vm.appTitle = constants.appTitle;
+     });	
     </script>
   </head>
-  <body ng-app="myApp">
+  <body>
     <div ng-controller="menuCtrl as vm">
     	<header-top user="vm.user" on-header-item-click="vm.onHeaderItemClick" header-items="vm.headerItems"></header-top>
         <main>

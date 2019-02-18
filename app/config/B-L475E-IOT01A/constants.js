@@ -1,5 +1,10 @@
 myApp.constant("constants", {
-  sources : {
+ login: {
+    "background": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/kitchen-bg.jpg" />',
+    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/oven.png">'
+
+  },
+   sources : {
     "nebula20": { 
    	  "mapMarker": {
           url: "//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/marker-kitchen.png"
@@ -15,10 +20,10 @@ myApp.constant("constants", {
          "temperature": '<img alt="Embedded Image"  width="17" height="30" src="//s3.amazonaws.com/scriptr-cdn/common/images/temperature.png" />',
          "humidity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/humidity.png" />',
          "pressure": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/pressure.png" />',
-         "building": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/building.png" />',
+         "address": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/building.png" />',
          "locationType": '<img alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/industrial.png" />',
          "time": '<img  alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/time.png" />',
-         "dmp": ' <img   alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/dmp.png">',
+         "device": ' <img   alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/device.png">',
          "proximity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/proximity.png" />',
          "accelerometer": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/accelerometer.png" />',
          "gyroscope": '<img alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/gyroscope.png" />',

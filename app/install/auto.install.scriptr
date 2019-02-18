@@ -4,7 +4,7 @@ var devices = require("device");
 var groups = require("group");
 
 
-var setupKey = (request.parameters) ? request.parameters["setupKey"] : "nebula-2.0";
+var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "B-L072Z-LRWAN1";//"nebula-2.0";
 
 /** Setup account default domain if none is set **/
 var subdomain = request.account.accountKey;
@@ -99,20 +99,50 @@ responseObject["scheduleCleanup"] = JSON.stringify(scheduleCleanup);
 
 
 var params = { 
-    "apsdb.scriptName": "app/view/javascript/constants-"+setupKey+".js",
-    "apsdb.newScriptName": "app/view/javascript/constants.js",
-    "apsdb.update": true
+    "apsdb.name": "app/config/"+setupKey+"/constants.js"
 }
-var installConfigurationFe = apsdb.callApi("SaveScript", params, null);
-responseObject["installConfigurationFe"] = JSON.stringify(installConfigurationFe);
+var installConfigurationFe = apsdb.callApi("GetFileContent", params, null);
+responseObject["GetConfigurationFe"] = JSON.stringify(installConfigurationFe);
+
+if(installConfigurationFe.metadata.status == "success") {
+    var params = { 
+    	"apsdb.name": "app/view/javascript/constants.js",
+    	"apsdb.content": JSON.stringify(installConfigurationFe.result)
+	}	
+    var installConfigurationFe = apsdb.callApi("SaveFile", params, null);
+    responseObject["setupConfigurationFe"] = JSON.stringify(installConfigurationFe);
+}
+
 
 var params = { 
-    "apsdb.scriptName": "app/config/"+setupKey+"/dataTransformation",
-    "apsdb.newScriptName": "app/config/dataTransformation",
-    "apsdb.update": true
+    "apsdb.name": "app/config/"+setupKey+"/dataTransformation"
 }
-var setupTransformation = apsdb.callApi("SaveScript", params, null);
-responseObject["setupTransformation"] = JSON.stringify(setupTransformation);
+var installConfigurationFe = apsdb.callApi("GetFileContent", params, null);
+responseObject["getTransformation"] = JSON.stringify(installConfigurationFe.metadata);
+
+if(installConfigurationFe.metadata.status == "success") {
+    var params = { 
+    	"apsdb.name": "app/config/dataTransformation",
+    	"apsdb.content": JSON.stringify(installConfigurationFe.result)
+	}	
+    var installConfigurationFe = apsdb.callApi("SaveFile", params, null);
+    responseObject["setupTransformation"] = JSON.stringify(installConfigurationFe.metadata);
+}
+
+var params = { 
+    "apsdb.name": "app/config/"+setupKey+"/config"
+}
+var installConfigurationBe = apsdb.callApi("GetFileContent", params, null);
+responseObject["getConfigurationBe"] = JSON.stringify(installConfigurationBe.metadata);
+
+if(installConfigurationBe.metadata.status == "success") {
+    var params = { 
+    	"apsdb.name": "app/config/config",
+    	"apsdb.content": JSON.stringify(installConfigurationBe.result)
+	}	
+    var installConfigurationBe = apsdb.callApi("SaveFile", params, null);
+    responseObject["setupConfigurationBe"] = JSON.stringify(installConfigurationBe.metadata);
+}
 
 
 return responseObject;

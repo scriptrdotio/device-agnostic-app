@@ -1,8 +1,8 @@
 <!doctype html>
-<html>  
+<html ng-app="myApp" ng-controller="loginCtrl as vm" >  
   <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Log In | scriptr.io</title>
+    <title>Log In | {{vm.appTitle}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,11 +25,6 @@
     <script src="/app/view/javascript/login/authorization.js"></script>
     
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
-    <script src="//cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
     <script src="/app/view/javascript/login/module.js"></script>
     <script src="/app/view/javascript/constants.js"></script>
     <!-- The needed config -->
@@ -40,12 +35,13 @@
   	angular.module('myApp').controller('loginCtrl', function($scope, constants, $sce) {
     	var vm = this;  
         vm.login = constants.login;
+        vm.appTitle = constants.appTitle;
         angular.forEach(vm.login, function(value, key) {
            vm.login[key] = $sce.trustAsHtml(value);
         });
     });	
   </script>
-  <body  ng-app="myApp" ng-controller="loginCtrl as vm">
+  <body ng-style="{'background-image':'url({{vm.login.background}})', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'bottom'}">
       <div class="opacity"></div>
       <div class="wrap">
           <div class="element col-xs-12 col-sm-10 col-md-8">
