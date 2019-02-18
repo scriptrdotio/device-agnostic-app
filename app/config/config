@@ -1,8 +1,10 @@
 var expiry = 60;
 
-var mapper = "app/entities/mapper/device/nebula"
-var nebulaDataTopUp =  {
-    "nebula20": {
+var mapper = "app/config/dataTransformation"
+var businessRuleScript = "app/entities/rules/decisionTable";
+
+var deviceDataTopUp =  {
+    "myDevice": {
         "lat": 45.5602805, 
         "long": -73.8521324,
         "building": "Freedom Tower",
@@ -11,16 +13,13 @@ var nebulaDataTopUp =  {
         "locationType": "Industrial",
         "locationSection": "kitchen",
         "physicalEnvironment": "Fridge",
-        "sensor": "nebula",
-        "source": "simulator"
+        "sensor": "nebula-2.0",
+        "source": "nebula20"
     }
 }	
 
 var email = {
     "TO": "",
-    "FROM": "Nebula20 - Smart Kitchens App",
-    "BODY": "Nebula20 - Smart Kitchens App"
+    "FROM": "My Connected Device App",
+    "BODY": "My Connected Device App"
 }
-
-var usersGroups=["scriptrio"]
-var devicesGroups=["scriptrio"]

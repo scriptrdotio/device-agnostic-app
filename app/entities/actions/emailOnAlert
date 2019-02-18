@@ -6,10 +6,10 @@ var _ = require("modules/underscore/underscore.js")._;
 var log = require("log");
 log.setLevel("INFO");
 
-function execute(request, device, alertType, group){
-    var notifications_settings =  notificationManager.getNotificationSettings(group);
+function execute(request, device, alertType){
+    var notifications_settings =  notificationManager.getNotificationSettings();
     if(notifications_settings && notifications_settings["emails"]) {
-        var emails = notifications_settings["emails"];
+        var emails = (typeof notifications_settings["emails"]  == 'string') ?  [notifications_settings["emails"] ] : notifications_settings["emails"] ;
         for(var i = 0; i < emails.length; i++) {
           sendEmailForAlertType(request, device, emails[i], config.email.FROM, alertType);
         }

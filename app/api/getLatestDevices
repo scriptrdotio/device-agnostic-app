@@ -9,7 +9,7 @@ if(devices) {
         var entry = deviceManager.getLatestDeviceEntry(devices[j].id)
         if(entry)
             documents.push(entry)
-            }
+        }
 }
 return utils.format(documents);
 

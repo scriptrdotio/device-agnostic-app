@@ -1,11 +1,5 @@
 var notificationManager = require("app/entities/notificationManager");
 
-var device = require("device");
-
-var getUser = device.get(request.user.id);
-var userGroups = getUser.result["groups"];
-var userGroups = (userGroups)? ((typeof userGroups == 'string') ?  [userGroups] : userGroups) :["scriptrio"];
-
 var query = {};
 if(request.body != null){
 	query = request.body;
@@ -23,8 +17,6 @@ if(typeof query == 'string' && params != null){
     }
 }
 
-for(var i = 0; i < userGroups.length; i++){
-    notificationManager.saveNotificationSettings(userGroups[i], query.emails)
-}
+notificationManager.saveNotificationSettings(query.emails)
 
 return {"emails": query.emails}

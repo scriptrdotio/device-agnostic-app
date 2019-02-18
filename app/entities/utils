@@ -8,7 +8,7 @@ function format(data){
             result[datum.id] = {
                 "0": [],
                 "order": ["0"],
-                "source":"simulator"
+                "source": datum.source || "simulator"
             };
         }
         var point = _.mapObject(datum, function(value, key){ return {"value": value}; });

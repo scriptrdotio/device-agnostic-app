@@ -6,19 +6,17 @@ var _= require("modules/underscore/underscore.js")._;
 var log = require("log");
 log.setLevel("INFO")
 
-var prefix = "notification_";
+var notification_key = "notifications_settings";
 
-function deleteNotificationSettings(group) {
-     var key = prefix + group;
-     return document.delete(key);
+function deleteNotificationSettings() {
+     return document.delete(notification_key);
 }
 
-function saveNotificationSettings(group, emails) {
-   var key = prefix + group;
+function saveNotificationSettings(emails) {
    if(emails && (typeof emails == 'string'))
        emails = [emails];
     
-   var result = document.get(key);
+   var result = document.get(notification_key);
    if(result.metadata.status == "success") {
         if(result.result.emails) {
             var existingEmails = result.result.emails;
@@ -26,21 +24,19 @@ function saveNotificationSettings(group, emails) {
             
             var toDelete = _.difference(existingEmails,_.intersection(existingEmails, emails));
             var toAppend = _.difference(emails, existingEmails);
-            log.info("[app/entities/notificationmanager] update notifications settings " + JSON.stringify({"key": key, "emails": {"append": toAppend, "delete": toDelete}}))
-            document.save({"key": key, "emails": {"append": toAppend, "delete": toDelete}})
-        } else {
-            log.info("[app/entities/notificationmanager] update notifications settings " + JSON.stringify({"key": key, "emails": emails}))
-            document.save({"key": key, "emails": emails})
+            log.info("[app/entities/notificationmanager] update notifications settings " + JSON.stringify({"key": notification_key, "emails": {"append": toAppend, "delete": toDelete}}))
+notification_key        } else {
+            log.info("[app/entities/notificationmanager] update notifications settings " + JSON.stringify({"key": notification_key, "emails": emails}))
+            document.save({"key": notification_key, "emails": emails})
         }
    } else{
-        log.info("[app/entities/notificationmanager] create notifications settings " + JSON.stringify({"key": key, "emails": emails, "document.readACL": "group:"+group}))
-        document.save({"key": key, "emails": emails, "document.readACL": "group:"+group})
+        log.info("[app/entities/notificationmanager] create notifications settings " + JSON.stringify({"key": notification_key, "emails": emails}))
+        document.save({"key": notification_key, "emails": emails})
    }
 }
 
-function getNotificationSettings(group) {
-   var key = prefix + group;
-   var result = document.get(key);
+function getNotificationSettings() {
+   var result = document.get(notification_key);
    if(result.metadata.status == "success") {
        return result.result;
    } else {

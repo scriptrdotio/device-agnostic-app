@@ -5,24 +5,12 @@ var _ = require("modules/underscore/underscore.js")._;
 var log = require("log");
 log.setLevel("INFO");
 
-var publishChannel = "responseChannel_"
-
+var publishChannel = "responseChannel"
 
 function publishDevice(entry){
-    var deviceChannels = getDevicePublishChannels(entry);
-    log.info("[app/entities/devicepublisher] Entry publish Channels: "+JSON.stringify(deviceChannels))
-     _.each(deviceChannels, function(channel,key) {
-		publishMapData(channel, entry);
-        publishDashboardData(channel, entry)
-	});
-}
-
-function getDevicePublishChannels(device) {
-   var publishChannels = [];
-   _.each(device["document.readACL"], function(value,key) {
-		publishChannels.push(publishChannel+value.split("group:")[1].split("@")[0]);
-	});
-   return publishChannels;
+    log.info("[app/entities/devicepublisher] Publish entry: "+JSON.stringify(entry))
+	publishMapData(channel, entry);
+    publishDashboardData(channel, entry)
 }
 
 function publishDashboardData(channel, entry) {

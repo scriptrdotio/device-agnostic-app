@@ -62,7 +62,7 @@ module.exports = function(grunt) {
 		            files : {
 		               'concat/min-safe/angular-promise-buttons.js':['dashboard/frontend/components/button/angular-promise-buttons.js'],
 		               'concat/min-safe/buttons.js':['dashboard/frontend/components/button/button.js'],
-		            	'concat/min-safe/angular.morris.js' : [ 'dashboard/frontend/components/chart/angular.morris.js' ],
+		               'concat/min-safe/angular.morris.js' : [ 'dashboard/frontend/components/chart/angular.morris.js' ],
 		               'concat/min-safe/morris.js' : [ 'dashboard/frontend/components/chart/morris.js' ],
 		               'concat/min-safe/chart.js' : [ 'dashboard/frontend/components/chart/chart.js' ],
 		               'concat/min-safe/justgauge.js' : [ 'dashboard/frontend/components/gauge/justgauge.js' ],
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 		               'concat/min-safe/grid.js' : [ 'dashboard/frontend/components/grid/grid.js' ],
 		               'concat/min-safe/angular_toggle_switch.js' : [ 'dashboard/frontend/components/toggleSwitch/angular_toggle_switch.js' ],
 		               'concat/min-safe/toggle_switch.js' : [ 'dashboard/frontend/components/toggleSwitch/toggle_switch.js' ],
-		               'concat/min-safe/map.js' : [ 'dashboard/frontend/components/map/map.js' ],
+                       'concat/min-safe/map.js' : [ 'dashboard/frontend/components/map/map.js' ],
 		               'concat/min-safe/angular_gridster.min.js':['dashboardBuilder/lib/gridster/angular_gridster.min.js'],
 		               'concat/min-safe/httpProvider.js' : [ 'httpProvider.js' ],
 		               'concat/min-safe/wsProvider.js' : [ 'wsProvider.js' ],
@@ -120,7 +120,8 @@ module.exports = function(grunt) {
 	                  "dashboardBuilder/lib/gridster/angular_gridster.min.css",
 	                  "dashboardBuilder/css/dashboard.css",
 	                  "dashboard/frontend/components/toggleSwitch/angular_toggle_switch.css",
-	                  "dashboard/frontend/components/button/button.css"
+	                  "dashboard/frontend/components/button/button.css",
+                      "dashboard/frontend/components/thermometer/style.css"
 	              ],
 	               dest : 'build/css/uicomponents_resources.css'
 	            }

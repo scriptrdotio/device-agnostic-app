@@ -4,7 +4,7 @@ var deviceManager = require("app/entities/deviceManager");
 var devices = getAllDevicesDefinition();
 var documentsToDelete = []
 
-for(var j = 0; j < devices.documents.length; j++) {
+for(var j = 0; devices && j < devices.documents.length; j++) {
     var entries = getDeviceHistoricalEntries(devices.documents[j].id,1)
     if(entries) {
         var pages = Math.ceil(entries.count/50)

@@ -17,9 +17,9 @@ var data = {};
 var deviceId = null;
 var dataMapping = {};
 
-if(request.user.id == "nebula20") {
+if(request.user.id == "myDevice") {
     var body = request.body ? request.body : request.rawBody;
-  	data = typeof(data) == "string" ? JSON.parse(body).d : body.d;
+  	data = typeof(data) == "string" ? JSON.parse(body) : body;
     data = deviceMapper.mapIt(data);
     deviceId = data.id; //It should come from the message
 } else {
@@ -33,7 +33,7 @@ try {
     log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
     if(deviceDefinition == null) {
         var deviceDefinition = {};
-        deviceDefinition = config.nebulaDataTopUp[deviceId];
+        deviceDefinition = config.deviceDataTopUp[deviceId];
         deviceDefinition.id = deviceDefinition.name = deviceId;
         deviceDefinition = deviceManager.buildDeviceDefinitionDocument(deviceDefinition);
         //Save device definition

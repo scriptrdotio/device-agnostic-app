@@ -1,13 +1,14 @@
-myApp.controller('mapCtrl', function($location, mapConstants, $routeParams) {
+myApp.controller('mapCtrl', function($location, constants, $routeParams) {
     var vm = this;
     vm.deviceKey = null;
 
-    vm.sources = mapConstants.sources;
-    vm.icons = mapConstants.infoWindows.icons;
+    vm.sources = constants.sources;
+    vm.icons = constants.infoWindows.icons;
     
     vm.go = function(path) {
         $location.path(path)
     }
+    
     vm.init = function() {
          if($routeParams && $routeParams.deviceId) {
              vm.deviceKey = $routeParams.deviceId;
@@ -26,10 +27,9 @@ myApp.controller('mapCtrl', function($location, mapConstants, $routeParams) {
     }
     
     vm.setMarkerIcon = function(data, marker){
-        marker.icon =  mapConstants.sources[marker.source]["kitchen"]
+        marker.icon =  constants.sources[marker.source]["mapMarker"]
         return marker
     }
-
 });
     
 myApp.controller('menuCtrl', function(headerItemsJson, menuItemsJson) {
@@ -37,7 +37,6 @@ myApp.controller('menuCtrl', function(headerItemsJson, menuItemsJson) {
     vm.headerItems = headerItemsJson;
     vm.user = JSON.parse($.cookie('user'));
     vm.menuItems = menuItemsJson;
-    
 });
 
 myApp.controller('notificationCtrl', function(httpClient) {
@@ -84,19 +83,11 @@ myApp.controller('rulesCtrl', function(httpClient, $sce, $timeout,$routeParams) 
     var vm = this;
     var params = {};
     params["scriptName"] = $routeParams.id;
-    
-     vm.editorUrl = null;
     httpClient
         .get("app/api/rules/getGenericRuleEditor", null)
         .then(
         function(data, response) {
-            vm.editorUrl = data;
-            if(params["scriptName"]){
-                vm.rulesrc = $sce.trustAsResourceUrl(data +  '/decision_table_' + params["scriptName"]+"&pluginName=SimpleDecisionTable");
-            }else{
-                vm.rulesrc = $sce.trustAsResourceUrl(data +  '/decision_table_generic&pluginName=SimpleDecisionTable');
-            }
-            
+             vm.rulesrc = $sce.trustAsResourceUrl(data);
              $timeout(function() {
                $(".loading-frame").css("display", "none")
                $(".allFrame").css("display","")
@@ -107,19 +98,11 @@ myApp.controller('rulesCtrl', function(httpClient, $sce, $timeout,$routeParams) 
         });
 });
 
-myApp.controller('alertsCtrl', function(httpClient, $routeParams, mapConstants) {
+myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
        var vm = this;
-    	vm.icons = mapConstants.infoWindows.icons;
+       vm.icons = constants.infoWindows.icons;
        vm.deviceKey = null;
-       vm.colDef = [
-            {headerName: "Temperature", field: "temperature", cellRenderer: function(params){return params.value + " " + params.data.temperature_unit}},
-            {headerName: "Humidity", field: "humidity", cellRenderer: function(params){return params.value  + " " + params.data.humidity_unit}},
-            {headerName: "Pressure", field: "pressure", cellRenderer: function(params){return params.value + " " + params.data.pressure_unit}},
-            {headerName: "Timestamp", field: "creationDate"},
-            {headerName: "Temperature Unit", field: "temperature_unit", hide: true},
-            {headerName: "Humidity Unit", field: "humidity_unit", hide: true},
-            {headerName: "Pressure Unit", field: "pressure_unit", hide: true},
-        ] 
+       vm.colDef = constants.alertsGrid; 
      
        vm.init = function(){
             if($routeParams && $routeParams.deviceId) {
@@ -149,13 +132,13 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, mapConstants) 
 });
         	
 
-myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $routeParamsmapConstants) {
+myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $routeParams, constants) {
     var vm = this;
-    vm.icons = mapConstants.infoWindows.icons;
+    vm.icons = constants.infoWindows.icons;
     vm.deviceKey = null;
     vm.gridsterOptions = {
-        pushing: false,
-
+        pushing: true,
+		floating: true,
         minRows: 1, // the minimum height of the grid, in rows
         maxRows: 100,
         columns: 4, // the width of the grid, in columns
@@ -167,10 +150,10 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
         mobileBreakPoint: 1024, // if the screen is not wider that this, remove the grid layout and stack the items
         minColumns: 1,
         resizable: {
-            enabled: false
+            enabled: true
         },
         draggable: {
-            enabled: false
+            enabled: true
         }
     };
 
@@ -194,9 +177,12 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
     vm.consumeData = function(data) {
         if(data.latest) {
             data = data.latest
+            vm.latest =  data;
         }
-        if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0])
+        if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0]) {
             vm.selectedDevice = data[vm.deviceKey][0][0];
+            vm.latest =   vm.selectedDevice
+		 }
     }
 
     vm.historicalFormatData = function(data){
@@ -205,16 +191,25 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
         else
             return data;
     }  
-    vm.gaugeFormatData7 = function(data){
+
+    vm.temperatureFormatData = function(data) {
         return data.latest.temperature;
     }
-
-    vm.gaugeFormatData8 = function(data){
+    
+    vm.pressureFormatData = function(data){
         return data.latest.pressure;
     }
 
-    vm.gaugeFormatData10 = function(data){
+    vm.humidityFormatData = function(data){
         return data.latest.humidity;
+    }
+    
+    vm.proximityFormatData = function(data){
+        return data.latest.proximity;
+    }
+    
+    vm.accelerometerFormatData= function(data){
+        return {"x": data.latest.acc_x, "y": data.latest.acc_y, "z": data.latest.acc_z};
     }
 });
 
