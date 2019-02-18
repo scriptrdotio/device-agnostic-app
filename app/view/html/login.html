@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>  
   <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -25,6 +25,11 @@
     <script src="/app/view/javascript/login/authorization.js"></script>
     
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.js"></script>
+    <script src="//cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
     <script src="/app/view/javascript/login/module.js"></script>
     <script src="/app/view/javascript/constants.js"></script>
     <!-- The needed config -->
@@ -32,9 +37,12 @@
     
   </head>
   <script type="text/javascript"> 
-  	angular.module('myApp').controller('loginCtrl', function($scope, constants) {
+  	angular.module('myApp').controller('loginCtrl', function($scope, constants, $sce) {
     	var vm = this;  
         vm.login = constants.login;
+        angular.forEach(vm.login, function(value, key) {
+           vm.login[key] = $sce.trustAsHtml(value);
+        });
     });	
   </script>
   <body  ng-app="myApp" ng-controller="loginCtrl as vm">

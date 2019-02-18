@@ -107,8 +107,8 @@ var installConfigurationFe = apsdb.callApi("SaveScript", params, null);
 responseObject["installConfigurationFe"] = JSON.stringify(installConfigurationFe);
 
 var params = { 
-    "apsdb.scriptName": "app/config/dataTransformation-"+setupKey,
-    "apsdb.newScriptName": "app/view/javascript/constants.js",
+    "apsdb.scriptName": "app/config/"+setupKey+"/dataTransformation",
+    "apsdb.newScriptName": "app/config/dataTransformation",
     "apsdb.update": true
 }
 var setupTransformation = apsdb.callApi("SaveScript", params, null);
