@@ -4,7 +4,7 @@ var devices = require("device");
 var groups = require("group");
 
 
-var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "B-L475E-IOT01A"//"B-L072Z-LRWAN1";//"nebula-2.0";
+var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "B-L072Z-LRWAN1"//"B-L475E-IOT01A";//"nebula-2.0";
 
 /** Setup account default domain if none is set **/
 var subdomain = request.account.accountKey;
@@ -117,16 +117,16 @@ if(installConfigurationFe.metadata.status == "success") {
 var params = { 
     "apsdb.name": "app/config/"+setupKey+"/dataTransformation"
 }
-var installConfigurationFe = apsdb.callApi("GetFileContent", params, null);
-responseObject["getTransformation"] = JSON.stringify(installConfigurationFe.metadata);
+var installTransformation = apsdb.callApi("GetFileContent", params, null);
+responseObject["getTransformation"] = JSON.stringify(installTransformation.metadata);
 
-if(installConfigurationFe.metadata.status == "success") {
+if(installTransformation.metadata.status == "success") {
     var params = { 
     	"apsdb.name": "app/config/dataTransformation",
-    	"apsdb.content": JSON.stringify(installConfigurationFe.result)
+    	"apsdb.content": JSON.stringify(installTransformation.result)
 	}	
-    var installConfigurationFe = apsdb.callApi("SaveFile", params, null);
-    responseObject["setupTransformation"] = JSON.stringify(installConfigurationFe.metadata);
+    var installTransformation = apsdb.callApi("SaveFile", params, null);
+    responseObject["setupTransformation"] = JSON.stringify(installTransformation.metadata);
 }
 
 var params = { 

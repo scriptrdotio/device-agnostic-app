@@ -20,6 +20,31 @@ var deviceDataTopUp =  {
 
 var email = {
     "TO": "",
-    "FROM": "Smart Kitchen Device App",
-    "BODY": "Smart Kitchen Device App"
+    "FROM": "Smart Kitchen App",
+    "BODY": "Smart Kitchen App"
+}
+
+var templates = {
+  mail: {
+      HIGH_TEMPERATURE: {
+        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: High Temperature!',
+        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has high temperature of <%= temperature %>.'
+      },
+      LOW_TEMPERATURE: {
+        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Low Temperature!',
+        body: '<%= physicalEnvironment %> - <%= locationSection %> with <%= sensor %> sensor <%= id %> has low temperature of <%= temperature %>.'
+      },
+      HIGH_HUMIDITY: {
+        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: High Humidity!',
+        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has high humidity of <%= humidity %>.'
+      },
+      LOW_HUMIDITY: {
+        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Low Humidity!',
+        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has low humidity of <%= humidity %>.'
+      },
+      PROXIMITY_ALERT: {
+          subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Proximity Alert!',
+          body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has flagged a proximity alert with value <%= proximity %>.'
+      }
+  }
 }

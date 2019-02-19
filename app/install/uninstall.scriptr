@@ -1,0 +1,24 @@
+var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "B-L072Z-LRWAN1"//"B-L475E-IOT01A";//"nebula-2.0";
+
+
+var responseObject = {};
+var params = { 
+    "apsdb.name": "app/config/dataTransformation"
+}
+var deleteTransformation = apsdb.callApi("DeleteFile", params, null);
+responseObject["deleteTransformation"] = JSON.stringify(deleteTransformation.metadata);
+
+
+var params = { 
+    "apsdb.name": "app/config/config"
+}
+var deleteConfig = apsdb.callApi("DeleteFile", params, null);
+responseObject["deleteConfig"] = JSON.stringify(deleteConfig.metadata);
+
+var params = { 
+    "apsdb.name": "app/view/javascript/constants.js"
+}
+var deleteConstants = apsdb.callApi("DeleteFile", params, null);
+responseObject["deleteConstants"] = JSON.stringify(deleteConstants.metadata);
+
+return responseObject;
