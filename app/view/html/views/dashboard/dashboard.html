@@ -174,7 +174,7 @@
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                                            																 api='app/api/getDeviceHistory'
+                                                                                     api-params='vm.params'                                            																   api='app/api/getDeviceHistory'
                                                                                      grid-text-family='Source Sans Pro'
                                                                                      line-width='3'
                                                                                      point-size='4'
@@ -217,7 +217,7 @@
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
-                                                                                     api-params='vm.params'                                            																 api='app/api/getDeviceHistory'
+                                                                                     api-params='vm.params'
                                                                                      grid-text-family='Source Sans Pro'
                                                                                      line-width='3'
                                                                                      point-size='4'
@@ -247,7 +247,7 @@
                         </div>
                     </div>
                 </li>
-               <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 4 }' ng-if="vm.latest.poximity">
+               <li class="myItem" gridster-item='{sizeX: 1, sizeY: 1, col: 0, row: 3 }' ng-if="vm.latest.proximity">
                     <div class="box">
                         <div class="box-content">
                             <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Proximity" class="box-label">Proximity</div>
@@ -258,8 +258,8 @@
                                                                                      gauge-value='vm.selectedDevice.proximity.value'
                                                                                      api-params='vm.params'                      
                                                                                      value-font-color='#999'
-                                                                                     min='-40'
-                                                                                     max='120'
+                                                                                     min='0'
+                                                                                     max='10000'
                                                                                      hide-min-max='false'
                                                                                      hide-value='false'
                                                                                      show-inner-shadow='false'
@@ -296,7 +296,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 5}' ng-if="vm.selectedDevice.proximity">
+                <li class="myItem" gridster-item='{sizeX: 3, sizeY: 1, col: 1, row: 3}' ng-if="vm.selectedDevice.proximity">
                     <div class="box">
                         <div class="box-content">
                             <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Proximity Data" class="box-label">Proximity Data</div>
@@ -304,8 +304,8 @@
                                                                                      type='line'
                                                                                      boxLabel='Proximity Data'
                                                                                      xkey='creationDate'
-                                                                                     ykeys='["acc_x", "acc_y", "acc_z"]'
-                                                                                     labels='["X", "Y", "Z"]'
+                                                                                     ykeys='["proximity"]'
+                                                                                     labels='["Proximity"]'
                                                                                      colors='["#FCC717","#38B9D6", "#1DBC68"]'
                                                                                      transport='wss'
                                                                                      msg-tag='{{vm.tag}}'
@@ -349,12 +349,12 @@
 										http-method='GET'
 										data='{x:20, y:1000,z:30}'
                                         api-params='vm.params'             		
-                                  		on-format-data='vm.accelerometerFormatData12'
+                                  		on-format-data='vm.accelerometerFormatData'
                            ></scriptr-accelerometer> </div>
                         </div>
                     </div>
                 </li>
-                <li class="myItem" gridster-item='{sizeX: 2, sizeY: 2, col: 0, row: 5}' ng-if="vm.selectedDevice.acc_x">
+                <li class="myItem" gridster-item='{sizeX: 2, sizeY: 2, col: 2, row: 5}' ng-if="vm.selectedDevice.acc_x">
                     <div class="box">
                         <div class="box-content">
                             <div  style="height: 30px;" tooltip-placement="bottom" uib-tooltip="Accelerometer Data" class="box-label">Accelerometer Data</div>

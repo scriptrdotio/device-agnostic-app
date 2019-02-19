@@ -1,5 +1,6 @@
 myApp.constant("constants", {
- login: {
+  appTitle: "Livestock fitbit",
+  login: {
     "background": '//s3.amazonaws.com/scriptr-cdn/livestock-fitbit/bg2.jpg',
     "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/livestock-fitbit/login-img.png">'
 
@@ -33,7 +34,7 @@ myApp.constant("constants", {
   alertsGrid: [
       {headerName: "Temperature", field: "temperature", cellRenderer: function(params){return params.value + " °C"}},
       {headerName: "Humidity", field: "humidity", cellRenderer: function(params){return params.value  + " %"}},
-      {headerName: "Pressure", field: "pressure", cellRenderer: function(params){return params.value + " Pa" + params.data.pressure_unit}},
+      {headerName: "Pressure", field: "pressure", cellRenderer: function(params){return params.value + " Pa"}},
       {headerName: "Timestamp", field: "creationDate"},
       {headerName: "Alerts", field: "alert_type", cellStyle: {'white-space': 'normal', 'word-break': 'break-all'}},
   ]

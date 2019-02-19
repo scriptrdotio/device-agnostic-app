@@ -181,7 +181,7 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
         }
         if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0]) {
             vm.selectedDevice = data[vm.deviceKey][0][0];
-            vm.latest =   vm.selectedDevice
+            vm.latest = vm.selectedDevice
 		 }
     }
 

@@ -112,7 +112,7 @@ function getDeviceDefinition(id) {
 
    var params = {
        "query" : "key=\""+key+"\"",
-       "fields": "country,city,source,locationType,locationSection,physicalEnvironment,sensor,building,long,lat,event_type,id",
+       "fields": "country,city,source,locationType,locationSection,physicalEnvironment,sensor,address,long,lat,event_type,id",
        
    }
    

@@ -14,12 +14,12 @@ var deviceDataTopUp =  {
         "locationSection": "kitchen",
         "physicalEnvironment": "Fridge",
         "sensor": "nebula-2.0",
-        "source": "nebula20"
+        "source": "nebula-2.0"
     }
 }	
 
 var email = {
     "TO": "",
-    "FROM": "My Connected Device App",
-    "BODY": "My Connected Device App"
+    "FROM": "Smart Kitchen Device App",
+    "BODY": "Smart Kitchen Device App"
 }

@@ -50,19 +50,19 @@
                 <small>Humidity</small>
             </div>
             <div class="col-xs-12 col-sm-3 text-center"  ng-if="marker.details.proximity.value">
-                <div class="icon bg-blue" ng-bind-html="summaryIcons.proximity">
+                <div class="icon bg-yellow" ng-bind-html="summaryIcons.proximity">
                 </div>
                 <div class="nb bold">{{marker.details.proximity.value || "N/A"}} {{marker.details.proximity_unit.value || "mm"}}</div>
-                <small>Humidity</small>
+                <small>Proximity</small>
             </div>
             <div class="col-xs-12 col-sm-3 text-center"  ng-if="marker.details.acc_x.value">
-                <div class="icon bg-blue" ng-bind-html="summaryIcons.acceleration">
+                <div class="icon bg-green" ng-bind-html="summaryIcons.accelerometer">
                 </div>
                 <div class="nb bold">{{marker.details.acc_x.value || "N/A"}}, {{marker.details.acc_y.value || "N/A"}}, {{marker.details.acc_z.value || "N/A"}} </div>
                 <small>Acceleration</small>
             </div>
             <div class="col-xs-12 col-sm-3 text-center" ng-if="marker.details.mag_x.value">
-                <div class="icon bg-blue" ng-bind-html="summaryIcons.magnetic">
+                <div class="icon bg-orange" ng-bind-html="summaryIcons.magnetic">
                 </div>
                 <div class="nb bold">{{marker.details.mag_x.value || "N/A"}}, {{marker.details.mag_y.value || "N/A"}}, {{marker.details.mag_z.value || "N/A"}}</div>
                 <small>Magnetic</small>

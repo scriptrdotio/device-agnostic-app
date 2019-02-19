@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ["Layout",  "WsClient", "HttpClient", "Map", "Chart", "Grid", "Gauge", "ngTagsInput", "gridster", "Button"]);
+var myApp = angular.module('myApp', ["Layout",  "WsClient", "HttpClient", "Map", "Chart", "Grid", "Gauge", "ngTagsInput", "gridster", "Button", "Accelerometer"]);
 
 myApp
     .constant("menuItemsJson",  menuItems)

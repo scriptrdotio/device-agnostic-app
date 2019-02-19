@@ -1,18 +1,19 @@
 myApp.constant("constants", {
+ appTitle: "Smart Kitchen",
  login: {
     "background": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/kitchen-bg.jpg" />',
     "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/oven.png">'
 
   },
    sources : {
-    "nebula20": { 
+    "nebula-2.0": { 
    	  "mapMarker": {
           url: "//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/marker-kitchen.png"
    	  }
     }
   },
   sourcesLabels: {
-    "nebula20": "Nebula 2.0"
+    "nebula-2.0": "Nebula 2.0"
   },
   infoWindows: {
     "icons": {

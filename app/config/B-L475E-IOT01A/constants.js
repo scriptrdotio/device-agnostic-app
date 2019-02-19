@@ -1,26 +1,28 @@
 myApp.constant("constants", {
- login: {
-    "background": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/kitchen-bg.jpg" />',
-    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/oven.png">'
+  
+  appTitle: "Smart Container",
+  login: {
+    "background": '//s3.amazonaws.com/scriptr-cdn/smart-cold-chain/images/smart-container-bg.jpg',
+    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-cold-chain/images/scriptr-container-image.png">'
 
   },
    sources : {
-    "nebula20": { 
+    "B-L475E-IOT01A": { 
    	  "mapMarker": {
-          url: "//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/marker-kitchen.png"
+          url: "//s3.amazonaws.com/scriptr-cdn/common/images/marker-container.png"
    	  }
     }
   },
   sourcesLabels: {
-    "nebula20": "Nebula 2.0"
+    "B-L475E-IOT01A": "STM32L4 Discovery kit IoT node, low-power wireless, BLE, NFC, SubGHz, Wi-Fi"
   },
   infoWindows: {
     "icons": {
-         "id": '<img  src="//s3.amazonaws.com/scriptr-cdn/smart-kitchens/images/icon-kitchen.png">',
+         "id": '<img  src="//s3.amazonaws.com/scriptr-cdn/common/images/container.png">',
          "temperature": '<img alt="Embedded Image"  width="17" height="30" src="//s3.amazonaws.com/scriptr-cdn/common/images/temperature.png" />',
          "humidity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/humidity.png" />',
          "pressure": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/pressure.png" />',
-         "address": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/building.png" />',
+         "address": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/location.png" />',
          "locationType": '<img alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/industrial.png" />',
          "time": '<img  alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/time.png" />',
          "device": ' <img   alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/device.png">',
@@ -31,13 +33,14 @@ myApp.constant("constants", {
      }
   },
   alertsGrid: [
-      {headerName: "Temperature", field: "temperature", cellRenderer: function(params){return params.value + " " + params.data.temperature_unit}},
-      {headerName: "Humidity", field: "humidity", cellRenderer: function(params){return params.value  + " " + params.data.humidity_unit}},
-      {headerName: "Pressure", field: "pressure", cellRenderer: function(params){return params.value + " " + params.data.pressure_unit}},
+      {headerName: "Temperature", field: "temperature", cellRenderer: function(params){return params.value + " °C"}},
+      {headerName: "Humidity", field: "humidity", cellRenderer: function(params){return params.value  + " %"}},
+      {headerName: "Pressure", field: "pressure", cellRenderer: function(params){return params.value + " Pa"}},
+      {headerName: "Proximity", field: "proximity", cellRenderer: function(params){return params.value + " mm"}},
+      {headerName: "Accelerometer", field: "acc_x", cellRenderer: function(params){return params.value + ", "+ params.data.acc_y+", "+params.data.acc_z}},
+      {headerName: "Gyroscope", field: "gyr_x", cellRenderer: function(params){return params.value + ", "+ params.data.gyr_y+", "+params.data.gyr_z}},
+      {headerName: "Magnetometer", field: "mag_x", cellRenderer: function(params){return params.value + ", "+ params.data.mag_y+", "+params.data.mag_z}},
       {headerName: "Timestamp", field: "creationDate"},
-      {headerName: "Temperature Unit", field: "temperature_unit", hide: true},
-      {headerName: "Humidity Unit", field: "humidity_unit", hide: true},
-      {headerName: "Pressure Unit", field: "pressure_unit", hide: true},
       {headerName: "Alerts", field: "alert_type", cellStyle: {'white-space': 'normal', 'word-break': 'break-all'}},
   ]
 })
