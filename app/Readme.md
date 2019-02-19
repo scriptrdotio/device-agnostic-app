@@ -1,5 +1,7 @@
-# Nebula 2.0 Smart Kitchen App
-The Smart Kitchen application is meant to jump start your development with scriptr.io and the Nebula 2.0. It's a complete end-to-end scenario that allows you to add as many devices and features as you like.
+# Device Agnostic App
+The device agnostic app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live adn historical data as you like.
+By default it ships with a list of pre-configured devices.
+
 
 
 # Features
