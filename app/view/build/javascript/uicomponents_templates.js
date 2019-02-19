@@ -123,6 +123,11 @@ var cachedTemplates = (["$templateCache", function($templateCache) {  'use stric
   );
 
 
+  $templateCache.put('/UIComponents/dashboard/frontend/components/accelerometer/accelerometer.html',
+    "<div><div class=\"line y\" ng-style=\"{ 'transform' :  $ctrl.yLine, 'border': '1px solid blue' }\"></div><div class=line ng-style=\"{ 'transform':  $ctrl.xLine}\"></div><div class=angle ng-style=\"{ 'transform':  $ctrl.angle }\"></div><div class=guideX></div><div class=guideY></div></div>"
+  );
+
+
   $templateCache.put('/UIComponents/layout/frontend/components/header/header.html',
     "<header><div class={{$ctrl.class}}><div class=\"logo pull-left\"><img src={{$ctrl.logo}} class=img-responsive></div><div class=\"pull-left appname\">{{$ctrl.appname}}</div><div class=pull-right><div class=\"header-items pull-left\"><div ng-repeat=\"item in $ctrl.items track by $index\" class=pull-left><a ng-click=$ctrl.onItemClick(item) route={{item.route}} index=\"{{colIndex = $index}}\" ng-click=$ctrl.addSelectedClass(colIndex) href={{item.route}}><i class={{item.icon}} aria-hidden=true></i> {{item.label}}</a></div></div><div class=\"pull-left username\"><div class=btn-group uib-dropdown is-open=status.isopen><button id=username-button type=button class=\"btn btn-primary\" uib-dropdown-toggle ng-disabled=disabled><i ng-show=\"$ctrl.user != null\" class=\"fa fa-user-circle\"></i> {{$ctrl.user.login || $ctrl.caretlabel }} <span class=caret></span></button><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=single-button><li ng-if=\"$ctrl.inGroup(item.roles) || !item.roles\" role=menuitem ng-repeat=\"item in $ctrl.subitems track by $index\"><a href={{item.route}}><i class={{item.icon}} aria-hidden=true></i> {{item.label}}</a></li><li ng-show=\"$ctrl.logout && $ctrl.subitems.length > 0\" class=divider></li><li ng-show=$ctrl.logout role=menuitem><a href={{$ctrl.logout.route}}><i class={{$ctrl.logout.icon}} aria-hidden=true></i> {{$ctrl.logout.label || \"Logout\"}}</a></li></ul></div></div></div></div></header>"
   );
