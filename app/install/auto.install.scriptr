@@ -4,7 +4,7 @@ var devices = require("device");
 var groups = require("group");
 
 
-var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "B-L475E-IOT01A";//"B-L072Z-LRWAN1"//"nebula-2.0";
+var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "nebula-2.0";
 
 /** Setup account default domain if none is set **/
 var subdomain = request.account.accountKey;
