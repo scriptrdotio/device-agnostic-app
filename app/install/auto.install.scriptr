@@ -70,7 +70,7 @@ var params = {
     'name': 'deviceDigestEndpoint',
     'protocol': 'mqtt',
     'url':'quickstart.messaging.internetofthings.ibmcloud.com',
-    'topic': 'iot-2/type/deviceDigest/id/deviceDigest'+request.account.accountKey+'/evt/+/fmt/json',
+    'topic': 'iot-2/type/nebula20/id/nebula20'+request.account.accountKey+'/evt/+/fmt/json',
     'clientId': 'a:quickstart:scriptr-'+request.account.accountKey
     
 }
