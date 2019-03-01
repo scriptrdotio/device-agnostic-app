@@ -5,13 +5,18 @@ By default it ships with a list of pre-configured devices.
 
 
 # Features
-- Entry point "app/view/html/login.html"
 
-Messages publishing/consumptions from the nebula 2.0 to scriptr.io occurs as follow:
-- The nebula-2.0 publishes the message to ibm bluemix over mqtt using a specific client id (i.e script-<scriptr-account-key>)
-- In scriptr.io account an mqtt connection definition to the ibm bluemix instance is set under Settings/External Endpoints.
-- A bridge is set between the nebulaDigest Channel using the previous external endpoint definition
-- The API "app/api/subscription/subscriber" consumes the messages by subscribing to the nebulaDigest channel. 
+Devices publish data to scriptr.io, either directly or through a DMP, over an MQTT connection. The data is then consumed by the "app/api/subscription/subscriber" script, parsed and saved. The application features the following:
+- Map: devices are displayed on a map. When the map's marker is clicked, the device's data are displayed in real-time.
+- Dashboard: real-time and historical data from the device can be viewed on a dashboard.
+- Rules Editor: rules can be created visually so that whenever a certain metric meets a certain business rule, such as exceeding a given value, an action is executed. Actions can include sending an email notification, logging the event, etc.
+- Alerts View: a log of the events where sensor data meet a condition defined in the Rules Editor.
+
+Regarding the Nebula 2.0 device, message publishing/consumption from the device to scriptr.io occurs as follow:
+- The nebula-2.0 publishes the message to IBM Watson over MQTT using a specific client ID
+- In scriptr.io, an MQTT endpoint that points to the IBM Watson instance is set under Settings/External Endpoints
+- A bridge is created between the nebulaDigest Channel using the previous external endpoint configuration
+- The API "app/api/subscription/subscriber" consumes the messages by subscribing to the nebulaDigest channel.
 
 Note that the nebula-2.0's expected payload is as follow:
 ```
@@ -36,10 +41,12 @@ Note that the nebula-2.0's expected payload is as follow:
      - Deploy the device type specific configuration files.
 
 # How to view the application
+The application's entry point is "app/view/html/login.html".
+
 The installation API "app/install/auto.install.scriptr" needs to be executed once. You need to pass a setupKey parameter to the script. The setupKey can be one of the following:
-	 - B-L072Z-LRWAN1
-     - B-L475E-IOT01A
-     - nebula-2.0
+	- B-L072Z-LRWAN1
+	- B-L475E-IOT01A
+	- nebula-2.0
      
 You select the setupKey based on the device type you are connecting to the application. Each device type has set of specific configuration files to be deployed during installation. The files are available under config/<DEVICE_TYPE>/.
 
