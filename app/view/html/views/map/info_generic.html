@@ -1,5 +1,5 @@
 <div ng-non-bindable="">
-    <section class="col-xs-12 bg-white-light pdt10 pdb10 index-summary">
+    <section class="col-xs-12 pdt10 index-summary">
        <div class="col-xs-12 info-wrap"> <div class="col-xs-12 col-sm-3 text-center pdl0 pdr0" ng-if="marker.details.id.value">
             <div class="icon bg-yellow" ng-bind-html="summaryIcons.id">
             </div>							
@@ -74,7 +74,25 @@
                 <small>Gyroscope</small>
             </div>
          <div class="clearfix mb10"></div>
-    </section>    
-    <button type="button" ng-click='vm.go("/dashboard/deviceId/"+marker.details.id.value)' class="btn btn-success active mt15" ng-cloak>View Dashboard</button>
-    <button type="button" ng-click='vm.go("/alerts/deviceId/"+marker.details.id.value)' class="btn btn-danger active mt15" ng-cloak>View Alerts</button>
+        	<div class="col-xs-12 col-sm-3 text-center" ng-class="{'blink_me': (marker.details.co_triggered.value == 'true')}"  ng-if="marker.details.co_triggered.value == 'true' || marker.details.co_triggered.value == 'false' ">
+                <div class="icon" ng-class="{'bg-red': (marker.details.co_triggered.value == 'true'), 'bg-green': (marker.details.co_triggered.value == 'false')}"  ng-bind-html="summaryIcons.co_triggered">
+                </div>
+                <div class="nb bold" ng-if="marker.details.co_triggered.value == 'true'">Detected</div>
+                <div class="nb bold" ng-if="marker.details.co_triggered.value == 'false'">Undetected</div>
+                <small>CO</small>
+            </div>
+            <div class="col-xs-12 col-sm-3 text-center" ng-class="{'blink_me': (marker.details.gas_triggered.value == 'true')}"  ng-if="marker.details.gas_triggered.value == 'true' || marker.details.gas_triggered.value == 'false' ">
+                <div class="icon" ng-class="{'bg-red': (marker.details.gas_triggered.value == 'true'), 'bg-green': (marker.details.gas_triggered.value == 'false')}"  ng-bind-html="summaryIcons.gas_triggered">
+                </div>
+                <div class="nb bold" ng-if="marker.details.gas_triggered.value == 'true'">Detected</div>
+                <div class="nb bold" ng-if="marker.details.gas_triggered.value == 'false'">Undetected</div>
+                <small>Gas</small>
+            </div>
+          <div class="clearfix mb10"></div>
+    </section>
+    <section class="clear"></section>
+    <section class="btns-container">
+        <button type="button" ng-click='vm.go("/dashboard/deviceId/"+marker.details.id.value)' class="btn btn-default mt15 mrgr15" ng-cloak>View Dashboard</button>
+        <button type="button" ng-click='vm.go("/alerts/deviceId/"+marker.details.id.value)' class="btn btn-danger mt15" ng-cloak>View Alerts</button>
+    </section>
 </div>

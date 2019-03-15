@@ -10,6 +10,11 @@
 .radius0 {border-radius: 0!important;}
 .full-width {width: 100%!important;}
 .pdb2 {padding-bottom: 2px;}
+.mrgr15 {margin-right: 15px;}
+.mrgb10 {margin-bottom: 10px;}
+
+.clear {clear: both;}
+
 .summary .fnt16 {line-height: 1.4em;}
 .mt10 {margin-top: 10px;}
 .level-bg-1 {
@@ -17,12 +22,22 @@
 }
 .header-items {padding-right: 0;}
 .box-title {color: #9c9c9c; letter-spacing: -1px; padding-left: 10px; display: inline-block; width: 100%; font-weight: bold;}
-.logo {
-    background: #283746;}
+.logo {background: #283746;padding: 0;display: flex;margin-left: 15px;align-items: center;}
+.logo img {height: 60%;width: auto;}
 .bg-grey-dark {background: #dedede;}
-.info-wrap {    background: #e8e8e8;
-    box-shadow: 0 0 3px #adadad;
-    padding: 8px 0;}
+.info-wrap {background: #e8e8e8;box-shadow: 0 0 3px #adadad;padding: 8px 0;}
+
+.btns-container {border-top: 1px solid #e8e8e8; padding-top: 10px;margin-top: 10px;}
+
+.btn {color: #fff;text-shadow: none;box-shadow: none;background-image: none;}
+.btn:hover {color: #FFF;}
+
+.btn-default {background-color: #f48220;border-color: #e47618;}
+.btn-default:hover, .btn-default:focus, .btn-default:active {background-color: #e4710d;border-color: #e47618;}
+
+.btn-danger {background-color: #d9534f;border-color: #d9534f;}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {background-color: #C12E29;border-color: #C12E29;}
+
 
 @media (min-width:768px) {
   main {display: flex; min-height: calc(100vh - 20px);}
@@ -88,6 +103,7 @@ tags-input .tags.focused {box-shadow: none;}
     padding: 10px;
 	color: #fff;}
 .bg-black {background: #3e434a;}
+.bg-red {background:  #d9534f;}
 .left-title {background: #3e434a; color: :#fff;}
 .right-title {background: #3e627d; color: :#fff;}
 
@@ -97,13 +113,21 @@ header, .logo, .side-bar {
 
 .tooltip-inner {font-weight: normal; font-family: "Arial";}
 
-.logo {
-   padding: 0 0 0 0;
-}
-
 .log > img {
      height: 44px;
     width: 200px;
 }
 
 .loading-frame, .loading-frame {text-align:center; z-index: 2;     padding-top: 100px ;width: 100%; height: 100%; position: absolute;background: rgba(255,255,255,1);}
+
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color: #d9534f;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

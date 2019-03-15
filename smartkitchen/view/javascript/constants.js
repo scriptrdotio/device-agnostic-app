@@ -28,7 +28,9 @@ myApp.constant("constants", {
          "proximity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/proximity.png" />',
          "accelerometer": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/accelerometer.png" />',
          "gyroscope": '<img alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/gyroscope.png" />',
-         "magnetic": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/magnetic.png" />'
+         "magnetic": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/magnetic.png" />',
+         "co_triggered": '<img alt="Embedded Image"  width="33px" height="33px"  src="//s3.amazonaws.com/scriptr-cdn/common/images/co.png" />',
+         "gas_triggered": '<img alt="Embedded Image" width="33px" height="33px"  src="//s3.amazonaws.com/scriptr-cdn/common/images/gas.png" />'
      }
   },
   alertsGrid: [
