@@ -1,6 +1,6 @@
 <div ng-init="vm.init();">
     <div ng-include="'/app/view/html/views/dashboard/summary.html'"></div>
-    <scriptr-grid columns-definition='vm.colDef' 
+    <scriptr-grid ng-if="vm.colDef" columns-definition='vm.colDef' 
                api='app/api/getDeviceAlerts'
                api-params='vm.params'
                enable-delete-row='false'

@@ -1,5 +1,4 @@
 var myApp = angular.module('myApp', ["Layout",  "WsClient", "HttpClient", "Map", "Chart", "Grid", "Gauge", "ngTagsInput", "gridster", "Button", "Accelerometer"]);
-
 myApp
     .constant("menuItemsJson",  menuItems)
     .constant("headerItemsJson", headerItems)
@@ -7,17 +6,12 @@ myApp
     .config(httpsConfig)
     .config(wssConfig)
     .config(function($routeProvider, routingJson, $sceProvider){
-   
     for(var i = 0; i < routingJson.params.length; i++){
         $routeProvider
-            .when("/", {
-            templateUrl: '/app/view/html/views/map/map.html'
-        })
-            .when("/" + routingJson.params[i].route,
-                  {
-            templateUrl: routingJson.params[i].template,
-            controller: routingJson.params[i].controller,
-        })
+            .when("/" + routingJson.params[i].route, {
+                    templateUrl: routingJson.params[i].template,
+                    controller: routingJson.params[i].controller,
+            }).otherwise("/map")
     }
-    
+   // $routeProvider.otherwise("/map")
 }); 

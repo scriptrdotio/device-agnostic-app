@@ -56,24 +56,29 @@
     <script src="/app/view/build/javascript/uicomponents_resources.min.js"></script>
       
     <script src="/app/view/javascript/login/authorization.js"> </script>
- 
-    
    
     <script src="/app/view/javascript/config.js"></script>
     <script src="/app/view/javascript/layout.js"></script>
     <script src="/app/view/javascript/module.js"></script>
-    <script src="/app/view/javascript/constants.js"></script>  
+    <script src="/<%theme%>/view/javascript/constants.js"></script>   
     <script src="/app/view/javascript/controller.js"></script>
     
     <script type="text/javascript"> 
+        
+      var redirect = {
+           login: "/<%theme%>/login",
+      };
       var authorization  = $.scriptr.authorization(
           {
               onTokenValid: function(){ }, 
-              loginPage: login.loginTarget,
+              loginPage: redirect.login,
               validateTokenApi: login.validateTokenApi
           }
       );
-
+       var underscore = angular.module('underscore', []);
+       	 underscore.factory('_', ['$window', function($window) {		
+         return $window._; // assumes underscore has already been loaded on the page		
+       }]);
      angular.module('myApp').run(cachedTemplates);  
      angular.module('myApp').controller('myAppCtrl', function($scope, constants, $sce) {
     	var vm = this;  

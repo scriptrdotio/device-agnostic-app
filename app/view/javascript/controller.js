@@ -102,7 +102,7 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
        var vm = this;
        vm.icons = constants.infoWindows.icons;
        vm.deviceKey = null;
-       vm.colDef = constants.alertsGrid; 
+      // vm.colDef = constants.alertsGrid; 
      
        vm.init = function(){
             if($routeParams && $routeParams.deviceId) {
@@ -111,6 +111,7 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
                 vm.tag = "dashboard_" +  vm.deviceKey;
                 httpClient.get("app/api/getLatestDevice", vm.params).then(
                 function(data, response) {
+                    
                     vm.summaryData(data)
                 },
                 function(err) {
@@ -128,6 +129,11 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
         vm.summaryData = function(data) {
             if(data && data[vm.deviceKey] && data[vm.deviceKey][0] && data[vm.deviceKey][0][0])
                 vm.selectedDevice = data[vm.deviceKey][0][0];
+                var selectedDeviceSensors = _.keys(vm.selectedDevice);
+            	vm.colDef = _.filter(constants.alertsGrid, function(columns) { 
+                    return selectedDeviceSensors.indexOf(columns.field) > -1;
+                });
+            
         }
 });
         	

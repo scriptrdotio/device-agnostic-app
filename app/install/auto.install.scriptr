@@ -4,8 +4,6 @@ var devices = require("device");
 var groups = require("group");
 
 
-var setupKey = (request.parameters && request.parameters["setupKey"]) ? request.parameters["setupKey"] : "nebula-2.0";
-
 /** Setup account default domain if none is set **/
 var subdomain = request.account.accountKey;
 var params = {
@@ -70,7 +68,7 @@ var params = {
     'name': 'deviceDigestEndpoint',
     'protocol': 'mqtt',
     'url':'quickstart.messaging.internetofthings.ibmcloud.com',
-    'topic': 'iot-2/type/nebula20/id/nebula20'+request.account.accountKey+'/evt/+/fmt/json',
+    'topic': 'iot-2/type/deviceDigest/id/deviceDigest'+request.account.accountKey+'/evt/+/fmt/json',
     'clientId': 'a:quickstart:scriptr-'+request.account.accountKey
     
 }
@@ -96,53 +94,5 @@ responseObject["subscribeScriptToChannel"] = JSON.stringify(response);
 //Set a scheduler to cleanup events
 var scheduleCleanup = schedule("app/cleanup/devicesEvents", "5 * * * ?");
 responseObject["scheduleCleanup"] = JSON.stringify(scheduleCleanup);
-
-
-var params = { 
-    "apsdb.name": "app/config/"+setupKey+"/constants.js"
-}
-var installConfigurationFe = apsdb.callApi("GetFileContent", params, null);
-responseObject["GetConfigurationFe"] = JSON.stringify(installConfigurationFe);
-
-if(installConfigurationFe.metadata.status == "success") {
-    var params = { 
-    	"apsdb.name": "app/view/javascript/constants.js",
-    	"apsdb.content": JSON.stringify(installConfigurationFe.result)
-	}	
-    var installConfigurationFe = apsdb.callApi("SaveFile", params, null);
-    responseObject["setupConfigurationFe"] = JSON.stringify(installConfigurationFe);
-}
-
-
-var params = { 
-    "apsdb.name": "app/config/"+setupKey+"/dataTransformation"
-}
-var installTransformation = apsdb.callApi("GetFileContent", params, null);
-responseObject["getTransformation"] = JSON.stringify(installTransformation.metadata);
-
-if(installTransformation.metadata.status == "success") {
-    var params = { 
-    	"apsdb.name": "app/config/dataTransformation",
-    	"apsdb.content": JSON.stringify(installTransformation.result)
-	}	
-    var installTransformation = apsdb.callApi("SaveFile", params, null);
-    responseObject["setupTransformation"] = JSON.stringify(installTransformation.metadata);
-}
-
-var params = { 
-    "apsdb.name": "app/config/"+setupKey+"/config"
-}
-var installConfigurationBe = apsdb.callApi("GetFileContent", params, null);
-responseObject["getConfigurationBe"] = JSON.stringify(installConfigurationBe.metadata);
-
-if(installConfigurationBe.metadata.status == "success") {
-    var params = { 
-    	"apsdb.name": "app/config/config",
-    	"apsdb.content": JSON.stringify(installConfigurationBe.result)
-	}	
-    var installConfigurationBe = apsdb.callApi("SaveFile", params, null);
-    responseObject["setupConfigurationBe"] = JSON.stringify(installConfigurationBe.metadata);
-}
-
 
 return responseObject;

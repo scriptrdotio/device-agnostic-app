@@ -6,8 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" type="image/x-icon" href="https://www.scriptr.io/themes/scriptr/images/favicon.ico">
-    <link rel="shortcut icon" href="https://www.scriptr.io/themes/scriptr/images/favicon.ico" type="image/png" />
+   	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type ='text/css' />
     <link href='https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css' rel='stylesheet' type ='text/css' />
     <link href='//fonts.googleapis.com/css?family=Raleway:300,800' rel='stylesheet' type='text/css'>
@@ -26,12 +25,17 @@
     
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="/app/view/javascript/login/module.js"></script>
-    <script src="/app/view/javascript/constants.js"></script>
+    <script src="/<%theme%>/view/javascript/constants.js"></script> 
     <!-- The needed config -->
     <script src="/app/view/javascript/config.js"></script>
     
   </head>
   <script type="text/javascript"> 
+      
+    var redirect = {
+       index: "/<%theme%>/index",
+    };
+      
   	angular.module('myApp').controller('loginCtrl', function($scope, constants, $sce) {
     	var vm = this;  
         vm.login = constants.login;
@@ -66,7 +70,7 @@
       
     <!-- end form  -->
     <script type="text/javascript">	
-       $('#loginForm').loginWidget({redirectTarget: login.redirectTarget, expiry: login.expiry, loginApi: login.loginApi, validateTokenApi: login.validateTokenApi});
+       $('#loginForm').loginWidget({redirectTarget: redirect.index, expiry: login.expiry, loginApi: login.loginApi, validateTokenApi: login.validateTokenApi});
     </script>
   </body>
 </html>

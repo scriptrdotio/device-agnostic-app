@@ -1,52 +1,14 @@
-var expiry = 60;
-
-var mapper = "app/config/dataTransformation"
-var businessRuleScript = "app/entities/rules/decisionTable";
+var mapper = "app/config/B-L072Z-LRWAN1/dataTransformation";
 
 var deviceDataTopUp =  {
-    "01-01-01-01-01-01-01-01": {
-        "lat": 45.5307159, 
-        "long": -73.8373892,
-        "address": "Little Feet Meadow",
-        "city": "Montreal",
-        "country": "Canada",
-        "locationType": "Ranch",
-        "locationSection": "Neck Collar",
-        "physicalEnvironment": "Cow",
-        "sensor": "B-L072Z-LRWAN1",
-        "source": "B-L072Z-LRWAN1"
-    }
-}	
-
-var email = {
-    "TO": "",
-    "FROM": "Livestock fittbit App",
-    "BODY": "Livestock fittbit App"
+    "lat": 45.5307159, 
+    "long": -73.8373892,
+    "address": "Little Feet Meadow",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Ranch",
+    "locationSection": "Neck Collar",
+    "physicalEnvironment": "Cow",
+    "sensor": "B-L072Z-LRWAN1",
+    "source": "simulator"
 }
-
-
-var templates = {
-  mail: {
-      HIGH_TEMPERATURE: {
-        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: High Temperature!',
-        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has high temperature of <%= temperature %>.'
-      },
-      LOW_TEMPERATURE: {
-        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Low Temperature!',
-        body: '<%= physicalEnvironment %> - <%= locationSection %> with <%= sensor %> sensor <%= id %> has low temperature of <%= temperature %>.'
-      },
-      HIGH_HUMIDITY: {
-        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: High Humidity!',
-        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has high humidity of <%= humidity %>.'
-      },
-      LOW_HUMIDITY: {
-        subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Low Humidity!',
-        body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has low humidity of <%= humidity %>.'
-      },
-      PROXIMITY_ALERT: {
-          subject: '<%= physicalEnvironment %> - <%= locationSection %> @ <%= address %>: Proximity Alert!',
-          body: '<%= physicalEnvironment %> in <%= locationSection %> with <%= sensor %> sensor <%= id %> has flagged a proximity alert with value <%= proximity %>.'
-      }
-  }
-}
-

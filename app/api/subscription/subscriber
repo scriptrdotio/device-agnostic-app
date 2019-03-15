@@ -11,43 +11,58 @@ var devicePublisher = require("app/entities/devicePublisher");
 
 var config = require("app/config/config");
 
-
-var deviceMapper = require(config.mapper);
+var deviceConfig = null;
 var data = {};
 var deviceId = null;
 var dataMapping = {};
 
 if(request.user.id == "myDevice") {
     var body = request.body ? request.body : request.rawBody;
-  	data = typeof(data) == "string" ? JSON.parse(body) : body;
-    data = deviceMapper.mapIt(data);
+  	var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
+   
+    _.some(config.availableDeviceTypes, function(entry) {
+        	deviceConfig = entry;
+        	var deviceMapper = require(entry.mapper);
+         	data = deviceMapper.mapIt(inputData); 
+            data = _.omit(data, function(value, key, object) {
+  				return _.isUndefined(value);
+			});
+    		return (_.isEmpty(data) == false);
+    });
+    
     deviceId = data.id; //It should come from the message
 } else {
     return;
 }
 
 log.info("[app/api/subscription/subscriber] received the following payload \n" + JSON.stringify(data));
-log.info("[app/api/subscription/subscriber] deviceId \n" + data.id);
-try {
-    var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
-    log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
-    if(deviceDefinition == null) {
-        var deviceDefinition = {};
-        deviceDefinition = config.deviceDataTopUp[deviceId];
-        deviceDefinition.id = deviceDefinition.name = deviceId;
-        deviceDefinition = deviceManager.buildDeviceDefinitionDocument(deviceDefinition);
-        //Save device definition
-        log.info("[app/api/subscription/subscriber] Creating Device Definition: "+JSON.stringify(deviceDefinition))
-        var result = deviceManager.saveDeviceDefinition(deviceDefinition);
+
+if(!_.isEmpty(data)) { 
+    try {
+        var deviceDefinition = deviceManager.getDeviceDefinition(deviceId);
+        log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
+        if(deviceDefinition == null) {
+            var deviceDefinition = {};
+            deviceDefinition = deviceConfig.deviceDataTopUp;
+            deviceDefinition.id = deviceDefinition.name = deviceId;
+            deviceDefinition = deviceManager.buildDeviceDefinitionDocument(deviceDefinition);
+            //Save device definition
+            log.info("[app/api/subscription/subscriber] Creating Device Definition: "+JSON.stringify(deviceDefinition))
+            var result = deviceManager.saveDeviceDefinition(deviceDefinition);
+        }
+        var entry = {};
+        entry = deviceManager.buildDeviceEventDocument(deviceDefinition, data);
+        log.info("[app/api/subscription/subscriber] Processing Event Entry: " + JSON.stringify(entry))	
+        return processEntry(entry);
+    }catch(exception) {
+        log.info("Exception: "+JSON.stringify(exception))
+        return exception;    
     }
-    var entry = {};
-    entry = deviceManager.buildDeviceEventDocument(deviceDefinition, data);
-	log.info("[app/api/subscription/subscriber] Processing Event Entry: " + JSON.stringify(entry))	
-    return processEntry(entry);
-}catch(exception) {
-    log.info("Exception: "+JSON.stringify(exception))
-	return exception;    
+} else {
+    log.info("[app/api/subscription/subscriber] No transformation found for data");
+    return;
 }
+
 
 function processEntry(entry) {
     deviceEvaluator.evaluateDevice(entry)

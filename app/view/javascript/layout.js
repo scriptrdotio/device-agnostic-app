@@ -24,6 +24,5 @@ var routingItems = {
     {"route": "notifications", "template": "/app/view/html/views/notifications/notifications.html", controller: "notificationCtrl as vm"},
     {"route": "rules", "template": "/app/view/html/views/genericRules/genericAllRule.html", controller: "rulesCtrl as vm"},    
     {"route": "logout", "template": "/app/view/html/logout.html"},  
-  ],
-  "otherwiseOption" :  "map"
+  ]
 };
