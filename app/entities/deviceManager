@@ -1,5 +1,6 @@
 var document = require("document");
 var device = require("device");
+var utils = require("app/entities/utils");
 
 var _= require("modules/underscore/underscore.js")._;
 
@@ -7,19 +8,7 @@ var log = require("log");
 log.setLevel("INFO");
 
 var event_prefix = "device_event_";
-var definition_prefix = "device_definition_";
-
-
-/** We still need to delete historical **/
-function deleteDevice(id) {
-    if(getDeviceDefinition(id) != null) {
-        var key = definition_prefix +id;
-        var result = document.delete(key);
-        if(result.metadata.status == "success")
-            return true;
-    } 
-    return false;
-}
+var type = "hardware";
 
 
 function getLatestDeviceEntry(id) {
@@ -79,8 +68,10 @@ function getDeviceHistoricalEntries(id) {
 
 function buildDeviceEventDocument(entry, data) {
     _.extendOwn(entry, data);
-    delete entry.key;
+    delete entry.auth_token;
     delete entry.versionNumber;
+    delete entry.latest;
+    delete entry.creator;
 
     entry["event_type"] = ["event"];
     entry["key"] = event_prefix + entry.id + "_" + new Date().getTime();
@@ -94,31 +85,30 @@ function buildDeviceEventDocument(entry, data) {
 
 function saveDeviceEvent(entry) {
    log.info("[app/entities/devicemanager] saving device event."+JSON.stringify(entry))
-   return document.save(entry);
+    log.info("[app/entities/devicemanager] saving device event."+JSON.stringify(document.save(entry)))
+  // return ;
 }
 
 
 function buildDeviceDefinitionDocument(entry) {
-    entry["key"] = definition_prefix + entry.id;
+    entry["id"] = entry.id;
+    entry["password"] = utils.generate();
+    entry["type"] = type;
     return entry;
 }
 
 function saveDeviceDefinition(entry) {
-   return document.save(entry);
+   return device.save(entry);
 }
 
 function getDeviceDefinition(id) {
-   var key = definition_prefix + id;
-
-   var params = {
-       "query" : "key=\""+key+"\"",
-       "fields": "country,city,source,locationType,locationSection,physicalEnvironment,sensor,address,long,lat,event_type,id",
-       
+    var params = {
+       "query" : "id =\""+ id +"\"",
+       "fields": "country,city,source,locationType,locationSection,physicalEnvironment,sensor,address,long,lat,event_type,id"
    }
-   
-   var result = document.query(params);
-   if(result.metadata.status == "success" && result.result.documents.length > 0) {
-        return result.result.documents[0];
+   var result = device.query(params);
+   if(result.metadata.status == "success") {
+        return result.result.devices[0];
    } else {
         return null;
    }
@@ -126,16 +116,15 @@ function getDeviceDefinition(id) {
 
 
 function getAllDevicesDefinition() {
-   var key = definition_prefix;
 
    var params = {
-       "query" : "key like \""+key+"%\"",
+       "query" : "type =\""+ type +"\"",
        "fields": "*"
    }
    
-   var result = document.query(params);
-   if(result.metadata.status == "success" && result.result.documents.length > 0) {
-        return result.result.documents;
+   var result = device.query(params);
+   if(result.metadata.status == "success" && result.result.devices.length > 0) {
+        return result.result.devices;
    } else {
         return null;
    }

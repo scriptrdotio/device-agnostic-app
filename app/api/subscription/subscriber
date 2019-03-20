@@ -15,9 +15,9 @@ var deviceConfig = null;
 var data = {};
 var deviceId = null;
 var dataMapping = {};
-
-if(request.user.id == "myDevice") {
-    var body = request.body ? request.body : request.rawBody;
+log.info("[app/api/subscription/subscriber] received the following payload \n" + JSON.stringify(request));
+if(request.user.id == config.dmpDeviceBroker) {
+    var body = request.body ? request.body : ((request.rawBody) ? request.rawBody : request.parameters);
   	var inputData = typeof(body) == "string" ? JSON.parse(body) : body;
    
     _.some(config.availableDeviceTypes, function(entry) {
@@ -29,13 +29,17 @@ if(request.user.id == "myDevice") {
 			});
     		return (_.isEmpty(data) == false);
     });
+    if(data.id) {//If it is in payload
+        deviceId = data.id; 
+    } else if(request.user.id != config.dmpDeviceBroker) {//If it is NOT in payload, the device is identified by the call credentials
+        deviceId = request.user.id;
+    }
     
-    deviceId = data.id; //It should come from the message
 } else {
     return;
 }
 
-log.info("[app/api/subscription/subscriber] received the following payload \n" + JSON.stringify(data));
+log.info("[app/api/subscription/subscriber] transform the payload into \n" + JSON.stringify(data));
 
 if(!_.isEmpty(data)) { 
     try {
@@ -43,7 +47,7 @@ if(!_.isEmpty(data)) {
         log.info("Existing Device Definition: "+JSON.stringify(deviceDefinition))
         if(deviceDefinition == null) {
             var deviceDefinition = {};
-            deviceDefinition = deviceConfig.deviceDataTopUp;
+            deviceDefinition = _.extend(deviceConfig.deviceDataTopUp, data);
             deviceDefinition.id = deviceDefinition.name = deviceId;
             deviceDefinition = deviceManager.buildDeviceDefinitionDocument(deviceDefinition);
             //Save device definition

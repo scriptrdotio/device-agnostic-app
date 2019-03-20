@@ -11,7 +11,7 @@ for(var j = 0; devices && j < devices.documents.length; j++) {
         for(var i = pages; i > 50; i--) {
             var toDelete = getDeviceHistoricalEntries(devices.documents[j].id, pages);
             for(var k = 0; k < toDelete.documents.length; k++){
-                log.info(k+" " +JSON.stringify(document.delete(toDelete.documents[k].key)))
+               document.delete(toDelete.documents[k].key);
             }
         }        
     }
@@ -35,9 +35,9 @@ function getDeviceHistoricalEntries(id, page) {
 }
 
 function getAllDevicesDefinition() {
-   var key = deviceManager.definition_prefix;
+   //var key = deviceManager.definition_prefix;
    var params = {
-       "query" : "key like \""+key+"%\"",
+       "query" : "source = \"simulator\"",
        "count": true,
        "fields": "key,id"
    }

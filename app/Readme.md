@@ -5,7 +5,15 @@ By default it ships with a list of pre-configured devices templates.
 
 
 # Features
-- Entry point "app/view/html/login.html"
+The device agnostic app can be used to serve different industries. So far, you can use the application in the context of a:
+- Smart kitchen "smartkitchen/login.html"
+- Live Stock fitbit "livestockfitbit/login.html"
+- Smart Container Cold chain "smartcontainer/login.html"
+
+Login to the application using demo/demo
+
+
+
 
 Messages publishing/consumptions from the nebula 2.0 to scriptr.io occurs as follow:
 - The nebula-2.0 publishes the message to ibm bluemix over mqtt using a specific client id (i.e script-<scriptr-account-key>)
@@ -36,12 +44,9 @@ Note that the nebula-2.0's expected payload is as follow:
      - Deploy the device type specific configuration files.
 
 # How to view the application
-The installation API "app/install/auto.install.scriptr" needs to be executed once. You need to pass a setupKey parameter to the script. The setupKey can be one of the following:
-	 - B-L072Z-LRWAN1
-     - B-L475E-IOT01A
-     - nebula-2.0
-     
-You select the setupKey based on the device type you are connecting to the application. Each device type has set of specific configuration files to be deployed during installation. The files are available under config/<DEVICE_TYPE>/.
+The installation API "app/install/auto.install.scriptr" needs to be executed once.
+
+Preliminary to that you need to activate your bridge free trial and your message queuing free trial options 
 
 If you registered with scriptr.io with the a promotion code, this script should have already been executed with the device type defined by the promocode.
 

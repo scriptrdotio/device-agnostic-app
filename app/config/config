@@ -1,5 +1,8 @@
 var expiry = 60;
 
+
+dmpDeviceBroker = "myDevice"
+
 var defaultApp = "smartkitchen";
 
 var businessRuleScript = "app/entities/rules/decisionTable";
