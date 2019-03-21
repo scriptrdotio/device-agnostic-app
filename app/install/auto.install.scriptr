@@ -41,10 +41,15 @@ var devicesList = [
         "name" : "demo",
         "groups": ["editor"]
     },
-    { //This device is used by to authenticate the mqtt bridge
+    { //This device is used by to authenticate a single device
         "id":"myDevice",
         "password" : "demo",
         "name" : "myDevice"
+    },
+    { //This device is used by to authenticate the messaging of group of devices to scriptr example, used for the authentication with the mqtt bridge, or to add the messaging queue
+        "id":"myDmpBroker",
+        "password" : "demo",
+        "name" : "myDmpBroker"
     }
 ];
 
@@ -59,7 +64,7 @@ devicesList.forEach(function(params) {
 
 //Create the channel used by the mqtt bridge between scriptr and ibm bluemix
 var channelsList =  ["deviceDigest"];
-var params = {"name" : "deviceDigest", "subscribeACL": ["myDevice"],"publishACL":  ["myDevice"]};
+var params = {"name" : "deviceDigest", "subscribeACL": ["authenticated"],"publishACL":  ["authenticated"]};
 var step6 = apsdb.callApi("SaveChannel", params , null )
 responseObject["channelCreation_"+params.name] = JSON.stringify(step6);
 
@@ -81,7 +86,7 @@ responseObject["createMqttExternalEndPoint"] = JSON.stringify(response);
 var params = {
     "channel": "deviceDigest",
     "externalEndpointConfiguration":"deviceDigestEndpoint",
-    "auth_token": devices.get("myDevice").result["auth_token"]
+    "auth_token": devices.get("myDmpBroker").result["auth_token"]
 }
 var response = apsdb.callApi("AddBridge", params, null);
 responseObject["AddBridge"] = JSON.stringify(response);

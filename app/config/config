@@ -1,7 +1,7 @@
 var expiry = 60;
 
 
-dmpDeviceBroker = "myDevice"
+var dmpDeviceBroker = "myDmpBroker";
 
 var defaultApp = "smartkitchen";
 
