@@ -11,6 +11,7 @@ myApp
             .when("/" + routingJson.params[i].route, {
                     templateUrl: routingJson.params[i].template,
                     controller: routingJson.params[i].controller,
+            		reloadOnSearch: false
             }).otherwise("/map")
     }
    // $routeProvider.otherwise("/map")
