@@ -7,8 +7,6 @@ The device agnostic app can be used to serve different industries. So far, you c
 - Live Stock fitbit,
 - Smart Container Cold chain.
 
-Login to the application using demo/demo
-
 # Device Connection
 Devices have multiple options to connect to the application:
 - Through a broker, ex: DMP, Gateway...
@@ -16,23 +14,23 @@ Devices have multiple options to connect to the application:
 -- MQTT
 -- AMQP
 -- HTTP
--- etc...
+-- WSS
 
 ## Device Identification
 
 The devices are identified:
-- Either by the id passed in payload
-- or by the token passed to authenticate the request
+- Either by the id passed in payload.
+- or by the token passed to authenticate the request.
 
 The "app/install/auto.install.scriptr" script onload the application with 2 devices:
+
 - myDmpBroker: This device is to be used by dmp or gateway that communicate with your scriptr account on behalf of multiple devices.
 - myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as id in the payload message or using myDevice token to authenticate the messages sent by your device.
 
+The id prevails over the token if both are present in the request sent by device. This might happen in case the user has multiple devices, and wants to authenticate their scriptr requests using the same device authentication key. In such scenario, the device would send his id in every payload.
 
-The application device identification model ignores the token if a parameter is present in the payload which maps to the id entry while normalizing the device data. Whenever this happens, the token is only used to authenticate the request.
 
-
-The default device data model is built from a template with the below data
+The default device data model is built from a template with the below default property values:
 ```
    { //This device is a virtual model of a physical device
     "id":"myDevice",
@@ -55,7 +53,7 @@ To edit the data of  myDevice you need to:
 - go to Tools > Data Explorer > Devices.
 - select your myDevice and edit the fields.
 
-In case, the device payload send any of these properties, they will override the device stored properties in the consecutive events.
+Whenever data arrives from the corresponding device, default properties values will be discarded.
 
 ## Device Payload 
 The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscibtion/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
@@ -97,7 +95,7 @@ The installation API "app/install/auto.install.scriptr" needs to be executed onc
 
 Preliminary to that you need to activate your bridge free trial and your message queuing free trial options 
 
-If you registered with scriptr.io with the a promotion code, this script should have already been executed with the device type defined by the promocode.
+If you registered with scriptr.io using a promocode, this script should have already been executed with the device type defined in the promocode.
 
 The Installation API "app/install/auto.install.scriptr" to install the app dependencies:
      - The channels needed by the application.
