@@ -1,5 +1,5 @@
 # Device Agnostic App
-The device agnostic app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live adn historical data as you like.
+The device agnostic app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live and historical data as you like.
 
 # Features
 The device agnostic app can be used to serve different industries. So far, you can use the application in the context of a:
