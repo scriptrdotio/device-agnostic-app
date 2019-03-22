@@ -56,7 +56,7 @@ To edit the data of  myDevice you need to:
 Whenever data arrives from the corresponding device, default properties values will be discarded.
 
 ## Device Payload 
-The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscibtion/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
+The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscription/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
    ### Example
    Devices sends the below payload:
    ```
@@ -122,7 +122,7 @@ As your device starts pushing data the dashboard and the map will reflect the ne
 - Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
 
 # About the code
-This section gives you an overview of the structure of the application and describes the responsibilities of the different scripts and file that compose it.
+This section gives you an overview of the structure of the application and describes the responsibilities of the different scripts and files that compose it.
 
 ## app/api folder
 The api folder contains scripts that define the API of the application, i.e. they are used by clients, such as the user interface (UI) or the client application running on the devices.
