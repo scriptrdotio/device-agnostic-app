@@ -1,47 +1,62 @@
 # Device Agnostic App
 The device agnostic app is meant to jump start your development with scriptr.io and any device you have. It's a complete end-to-end scenario that allows you to connect your device and view its live adn historical data as you like.
-By default it ships with a list of pre-configured devices templates.
-
-
 
 # Features
 The device agnostic app can be used to serve different industries. So far, you can use the application in the context of a:
-- Smart kitchen "smartkitchen/login.html"
-- Live Stock fitbit "livestockfitbit/login.html"
-- Smart Container Cold chain "smartcontainer/login.html"
+- Smart kitchen,
+- Live Stock fitbit,
+- Smart Container Cold chain.
 
 Login to the application using demo/demo
 
+# Device Connection
+Devices have multiple options to connect to the application:
+- Through a broker, ex: DMP, Gateway...
+- Directly over any of the supported protocols:
+-- MQTT
+-- AMQP
+-- HTTP
+-- etc...
 
+## Device Identification
+The auto.install.scriptr script onload the application with 2 devices:
+- myDmpBroker: This device is to be used by dmp or gateway that communicate with your scriptr account on behalf of multiple devices.
+- myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as his id or using myDevice token to authenticate the messages sent by your device.
 
-
-Messages publishing/consumptions from the nebula 2.0 to scriptr.io occurs as follow:
-- The nebula-2.0 publishes the message to ibm bluemix over mqtt using a specific client id (i.e script-<scriptr-account-key>)
-- In scriptr.io account an mqtt connection definition to the ibm bluemix instance is set under Settings/External Endpoints.
-- A bridge is set between the nebulaDigest Channel using the previous external endpoint definition
-- The API "app/api/subscription/subscriber" consumes the messages by subscribing to the nebulaDigest channel. 
-
-Note that the nebula-2.0's expected payload is as follow:
+The default device data model is built from a template with the below data
 ```
-{"d": 
-	{
-    	"p":"953.72",
-    	"h_unit":"%",
-        "p_unit":"Pa",
-        "t":"2.48",
-        "h":"3.09",
-        "t_unit":
-        "C",
-        "id":"nebula20"
-	}
+   { //This device is a virtual model of a physical device
+    "id":"myDevice",
+    "password" : "demo",
+    "name" : "myDevice",
+    "type": "hardware",
+    "lat": 45.5307159, 
+    "long": -73.8373892,
+    "address": "Little Feet Meadow",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Ranch",
+    "locationSection": "Neck Collar",
+    "physicalEnvironment": "Cow",
+    "sensor": "mySensorType",
+    "source": "simulator"
 }
 ```
-- Installation API "app/install/auto.install.scriptr" to install the app dependencies:
-     - The channels needed by the application.
-     - A default subdomain for the account, if not available.
-     - Default credentials (demo/demo) to use for login.
-     - External End points and bridges when needed.
-     - Deploy the device type specific configuration files.
+To edit the data of  myDevice you need to:
+- go to Tools > Data Explorer > Devices.
+- select your myDevice and edit the fields.
+
+In case, the device payload send any of these properties, they will override the device stored properties in the consecutive events.
+
+## Device Payload 
+The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscibtion/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
+
+## Device communication
+The devices are identified by:
+- Either by the id passed in payload
+- or by the token passed to authenticate the request
+
+The application device identification model ignores the token if a parameter is present in the payload which maps to the id entry while normalizing the device data. Whenever this happens, the token is only used to authenticate the request.
 
 # How to view the application
 The installation API "app/install/auto.install.scriptr" needs to be executed once.
@@ -50,7 +65,17 @@ Preliminary to that you need to activate your bridge free trial and your message
 
 If you registered with scriptr.io with the a promotion code, this script should have already been executed with the device type defined by the promocode.
 
-To visualize your device data in real-time, open the script "app/view/html/login.html" and click View, then login with the demo/demo credentials. You will land on a map with a cluster view of the device whenever it starts pushing data.
+The Installation API "app/install/auto.install.scriptr" to install the app dependencies:
+     - The channels needed by the application.
+     - A default subdomain for the account, if not available.
+     - Default credentials (demo/demo) to use for login.
+     - External End points and bridges when needed.
+     
+To visualize your device data in real-time, open the script "<app-theme>/view/html/login.html" and click View, then login with the demo/demo credentials. You will land on a map with a cluster view of the device whenever it starts pushing data.
+<app-theme> can be one of:
+- smartkitchen
+- livestockfitbit
+- smartcontainer
 
 Zooming into the map and clicking on a marker will display an info window with the latest data the device has published. You can click on edit dashboard to view a detailed dashboard of a specific device.
 
@@ -58,27 +83,11 @@ Clicking on alerts lists all the logged events from your devices.
 
 As your device starts pushing data the dashboard and the map will reflect the new readings from your devices automatically.
 
-# Notes
-This app provides a config file you can use to setup default info for your device. Assuming your device is of type nebula-2.0 was build and compiled with an id set to "xxx", update config/config file nebula20 object with the info you want such as latitude, longitude, etc.
-```
-"myDevice": {
-        "lat": 45.5602805, 
-        "long": -73.8521324,
-        "building": "Freedom Tower",
-        "city": "Montreal",
-        "country": "Canada",
-        "locationType": "Industrial",
-        "locationSection": "kitchen",
-        "physicalEnvironment": "Fridge",
-        "sensor": "nebula",
-        "source": "simulator"
-    }
-```
-
 # Dependencies
-Underscore module (if you registered with scriptr.io with a promotion code, this module should have already been installed).
+- Underscore module (if you registered with scriptr.io with a promotion code, this module should have already been installed).
+- Hogan module (if you registered with scriptr.io with a promotion code, this module should have already been installed).
 
-Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
+- Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
 
 # About the code
 This section gives you an overview of the structure of the application and describes the responsibilities of the different scripts and file that compose it.
@@ -92,7 +101,6 @@ The script also uses "entities/devicePublisher" to publish the received data in 
 - api/getDeviceAlerts: this script is invoked by the UI to obtain the list of the alerts that were triggered for a device by the application. This list is actually obtained from "entities/deviceManager". Passing the "filter" parameter narrows the list to the alerts related to the device with and id matching the value of "filter". 
 - api/getDeviceHistory: this script is invoked by the UI to obtain the list of all the events that occurred through time for a device. 
 - api/getLatestDevices: this script is invoked by the UI to obtain the latest events of all devices.
-- api/getLatestDevices: this script is invoked by the UI to obtain the latest event of a specific device.
 
 ## /entities folder
 This folder contains the scripts that implement the business logic and business rules of the application. 
@@ -120,6 +128,9 @@ This folder contains a script to cleanup the devices events data
 This folder contains the scripts that define the User Interface of the application. The scripts are distributed into three seperate sub-folders depending on their type: "/html" for the HTML pages, "/javascript" for the controllers (MVC design) and "/css" for the look and feel. Note that the UI is leveraging a subset of scriptr.io's UI component, which has been pre-packed for this demo application.
 
 ### /view/html
+
+Based on your selected entry point the below pages will be parsed with the appropriate theme.
+
 - /view/html/index.html: this page is the template of the application's UI: it is composed of a header, a menu on the left-side, and a content section, within which different pages will be displayed depending on the action triggered by the user of the application.
 - /view/html/login.html, /view/html/logout.html: these pages are used for the login/logout process. They are part of the login component that you can install as a separate module.
 
