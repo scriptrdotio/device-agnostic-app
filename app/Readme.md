@@ -98,10 +98,10 @@ Preliminary to that you need to activate your bridge free trial and your message
 If you registered with scriptr.io using a promocode, this script should have already been executed with the device type defined in the promocode.
 
 The Installation API "app/install/auto.install.scriptr" to install the app dependencies:
-     - The channels needed by the application.
-     - A default subdomain for the account, if not available.
-     - Default credentials (demo/demo) to use for login.
-     - External End points and bridges when needed.
+- The channels needed by the application.
+- A default subdomain for the account, if not available.
+- Default credentials (demo/demo) to use for login.
+- External End points and bridges when needed.
      
 To visualize your device data in real-time, open the script "<app-theme>/view/html/login.html" and click View, then login with the demo/demo credentials. You will land on a map with a cluster view of the device whenever it starts pushing data.
 <app-theme> can be one of:
@@ -116,8 +116,8 @@ Clicking on alerts lists all the logged events from your devices.
 As your device starts pushing data the dashboard and the map will reflect the new readings from your devices automatically.
 
 # Dependencies
-- Underscore module (if you registered with scriptr.io with a promotion code, this module should have already been installed).
-- Hogan module (if you registered with scriptr.io with a promotion code, this module should have already been installed).
+- Underscore module (if you registered with scriptr.io using a promotion code, this module should have already been installed).
+- Hogan module (if you registered with scriptr.io using a promotion code, this module should have already been installed).
 
 - Your application is deployed to your account with a package version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module which you can find under app/view/build/. If you wish to use an unpackaged version of the [UIComponents](https://github.com/scriptrdotio/UIComponents) module and modify it, replace index.html with index.unpackage.html and checkout the master branch of [UIComponents](https://github.com/scriptrdotio/UIComponents). Read more about it [here](https://github.com/scriptrdotio/https://github.com/scriptrdotio/device-agnostic-app/tree/master/app/view/build/Readme.md).
 
