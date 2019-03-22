@@ -19,9 +19,18 @@ Devices have multiple options to connect to the application:
 -- etc...
 
 ## Device Identification
-The auto.install.scriptr script onload the application with 2 devices:
+
+The devices are identified:
+- Either by the id passed in payload
+- or by the token passed to authenticate the request
+
+The "app/install/auto.install.scriptr" script onload the application with 2 devices:
 - myDmpBroker: This device is to be used by dmp or gateway that communicate with your scriptr account on behalf of multiple devices.
-- myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as his id or using myDevice token to authenticate the messages sent by your device.
+- myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as id in the payload message or using myDevice token to authenticate the messages sent by your device.
+
+
+The application device identification model ignores the token if a parameter is present in the payload which maps to the id entry while normalizing the device data. Whenever this happens, the token is only used to authenticate the request.
+
 
 The default device data model is built from a template with the below data
 ```
@@ -50,6 +59,38 @@ In case, the device payload send any of these properties, they will override the
 
 ## Device Payload 
 The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscibtion/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
+   ### Example
+   Devices sends the below payload:
+   ```
+      { "pressure": 955.8,
+         "temperature": 23.5, 
+         "humidity": 57.4, 
+         "luminosity": 3,
+         "location":{
+             "lat":40.6976701,
+             "lon":-74.2598681
+         },
+         "batteryLevel": 254, 
+         "deviceId": "01-01-01-01-01-01-01-01", 
+         "time": "2019-02-12T18:07:05.605854Z", 
+         "_msgid": "b72103fe.48df",
+         "id":"myDevice"
+        }
+   ```
+   The "app/api/subscibtion/subscriber" will normalize it into this data model to be stored and used by the application:
+   ```
+       {
+         "pressure": 955.8,
+         "temperature": 23.5,
+         "humidity": 57.4,
+         "luminosity": 3,
+         "lat": 40.6976701,
+         "long": -74.2598681,
+         "battery": 254,
+         "id": "01-01-01-01-01-01-01-01",
+         "timestamp": "2019-02-12T18:07:05.605854Z"
+      }
+   ```
 
 ## Device communication
 The devices are identified:
