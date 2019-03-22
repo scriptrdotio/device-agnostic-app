@@ -102,7 +102,6 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
        var vm = this;
        vm.icons = constants.infoWindows.icons;
        vm.deviceKey = null;
-      // vm.colDef = constants.alertsGrid; 
      
        vm.init = function(){
             if($routeParams && $routeParams.deviceId) {
@@ -111,7 +110,6 @@ myApp.controller('alertsCtrl', function(httpClient, $routeParams, constants) {
                 vm.tag = "dashboard_" +  vm.deviceKey;
                 httpClient.get("app/api/getLatestDevice", vm.params).then(
                 function(data, response) {
-                    
                     vm.summaryData(data)
                 },
                 function(err) {

@@ -34,6 +34,23 @@ channelsList.forEach(function(channel) {
 });
 
 
+var defaultDevice = { //This device is used by to authenticate a single device
+    "id":"myDevice",
+    "password" : "demo",
+    "name" : "myDevice",
+    "type": "hardware",
+    "lat": 45.5307159, 
+    "long": -73.8373892,
+    "address": "Little Feet Meadow",
+    "city": "Montreal",
+    "country": "Canada",
+    "locationType": "Ranch",
+    "locationSection": "Neck Collar",
+    "physicalEnvironment": "Cow",
+    "sensor": "mySensorType",
+    "source": "simulator"
+}
+
 var devicesList = [
     {//Device used to login to iot app
         "id":"demo",
@@ -41,16 +58,12 @@ var devicesList = [
         "name" : "demo",
         "groups": ["editor"]
     },
-    { //This device is used by to authenticate a single device
-        "id":"myDevice",
-        "password" : "demo",
-        "name" : "myDevice"
-    },
     { //This device is used by to authenticate the messaging of group of devices to scriptr example, used for the authentication with the mqtt bridge, or to add the messaging queue
         "id":"myDmpBroker",
         "password" : "demo",
         "name" : "myDmpBroker"
-    }
+    },
+    defaultDevice
 ];
 
 devicesList.forEach(function(params) {
