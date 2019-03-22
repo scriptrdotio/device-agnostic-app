@@ -52,7 +52,7 @@ In case, the device payload send any of these properties, they will override the
 The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscibtion/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
 
 ## Device communication
-The devices are identified by:
+The devices are identified:
 - Either by the id passed in payload
 - or by the token passed to authenticate the request
 
