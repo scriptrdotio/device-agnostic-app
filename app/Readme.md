@@ -92,13 +92,6 @@ The data communicated to scriptr.io account will be normalized into a specific d
       }
    ```
 
-## Device communication
-The devices are identified:
-- Either by the id passed in payload
-- or by the token passed to authenticate the request
-
-The application device identification model ignores the token if a parameter is present in the payload which maps to the id entry while normalizing the device data. Whenever this happens, the token is only used to authenticate the request.
-
 # How to view the application
 The installation API "app/install/auto.install.scriptr" needs to be executed once.
 
