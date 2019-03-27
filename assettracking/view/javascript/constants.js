@@ -1,36 +1,38 @@
 myApp.constant("constants", {
-  
-  appTitle: "Smart Container",
-  login: {
-    "background": '//s3.amazonaws.com/scriptr-cdn/smart-cold-chain/images/smart-container-bg.jpg',
-    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/smart-cold-chain/images/scriptr-container-image.png">'
+ appTitle: "Asset Tracking",
+ logo: "//s3.amazonaws.com/scriptr-cdn/multitech/images/logo multi-tech.png",
+ login: {
+    "background": '//s3.amazonaws.com/scriptr-cdn/multitech/images/city-bg.jpeg',
+    "smallImage": '<img src="//s3.amazonaws.com/scriptr-cdn/multitech/images/multitech-conduit.png">'
 
   },
    sources : {
     "simulator": { 
    	  "mapMarker": {
-          url: "//s3.amazonaws.com/scriptr-cdn/common/images/marker-container.png"
+          url: "//s3.amazonaws.com/scriptr-cdn/multitech/images/map-pin.png"
    	  }
     }
   },
   sourcesLabels: {
-    "simulator": "STM32L4 Discovery kit IoT node, low-power wireless, BLE, NFC, SubGHz, Wi-Fi"
+    "simulator": "Multitech Conduit"
   },
   infoWindows: {
     "icons": {
-         "id": '<img  src="//s3.amazonaws.com/scriptr-cdn/common/images/container.png">',
+         "id": '<img  src="//s3.amazonaws.com/scriptr-cdn/multitech/images/multitech-id.png">',
          "temperature": '<img alt="Embedded Image"  width="17" height="30" src="//s3.amazonaws.com/scriptr-cdn/common/images/temperature.png" />',
          "humidity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/humidity.png" />',
          "pressure": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/pressure.png" />',
-         "address": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/location.png" />',
+         "address": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/building.png" />',
          "locationType": '<img alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/industrial.png" />',
          "time": '<img  alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/time.png" />',
-        "luminosity": '<img  alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/light.png" />',
+         "luminosity": '<img  alt="Embedded Image"    src="//s3.amazonaws.com/scriptr-cdn/common/images/light.png" />',
          "device": ' <img   alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/device.png">',
          "proximity": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/proximity.png" />',
          "accelerometer": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/accelerometer.png" />',
          "gyroscope": '<img alt="Embedded Image" src="//s3.amazonaws.com/scriptr-cdn/common/images/gyroscope.png" />',
-         "magnetic": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/magnetic.png" />'
+         "magnetic": '<img alt="Embedded Image"  src="//s3.amazonaws.com/scriptr-cdn/common/images/magnetic.png" />',
+         "co_triggered": '<img alt="Embedded Image"  width="33px" height="33px"  src="//s3.amazonaws.com/scriptr-cdn/common/images/co.png" />',
+         "gas_triggered": '<img alt="Embedded Image" width="33px" height="33px"  src="//s3.amazonaws.com/scriptr-cdn/common/images/gas.png" />'
      }
   },
   alertsGrid: [

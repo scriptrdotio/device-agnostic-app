@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp" ng-controller="myAppCtrl as vm" ng-cloak>
   <head>
     <meta charset="utf-8">
-    <title ng-bind-html="vm.appTitle">Scriptr.io | Devices IOT App</title>
+    <title ng-bind-html="vm.appTitle">Scriptr.io | Devices IOT App </title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
       
     <!-- CSS -->  
@@ -16,8 +16,13 @@
     <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Raleway:300,800'>  
     
     <link rel='stylesheet' href='/app/view/build/css/uicomponents_resources.min.css'>    
-      
-    <link rel="stylesheet" href="/app/view/css/styles.css"> 
+
+    <%#style%>
+       <link rel="stylesheet" href="/<%theme%>/view/css/styles.css"> 
+    <%/style%>
+    <%^style%>
+    	<link rel="stylesheet" href="/app/view/css/styles.css"> 
+    <%/style%>
       
     <script src="//use.fontawesome.com/3d61d6959e.js"></script>
       
@@ -62,6 +67,7 @@
     <script src="/app/view/javascript/module.js"></script>
     <script src="/<%theme%>/view/javascript/constants.js"></script>   
     <script src="/app/view/javascript/controller.js"></script>
+    
     
     <script type="text/javascript"> 
         
