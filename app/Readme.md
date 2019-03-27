@@ -10,11 +10,8 @@ The device agnostic app can be used to serve different industries. So far, you c
 # Device Connection
 Devices have multiple options to connect to the application:
 - Through a broker, ex: DMP, Gateway...
-- Directly over any of the supported protocols:
--- MQTT
--- AMQP
--- HTTP
--- WSS
+- Directly over any of the supported protocols: MQTT, WS, AMQP & HTTPS
+
 
 ## Device Identification
 
@@ -27,10 +24,10 @@ The "app/install/auto.install.scriptr" script onload the application with 2 devi
 - myDmpBroker: This device is to be used by dmp or gateway that communicate with your scriptr account on behalf of multiple devices.
 - myDevice: This is a sample device definition that represents your device if you choose your device to communicate directly with scriptr whether by sending myDevice as id in the payload message or using myDevice token to authenticate the messages sent by your device.
 
-The id prevails over the token if both are present in the request sent by device. This might happen in case the user has multiple devices, and wants to authenticate their scriptr requests using the same device authentication key. In such scenario, the device would send his id in every payload.
+The id prevails over the token if both are present in the request sent by device. This might happen in case the user has multiple devices, and wants to authenticate their scriptr requests using the same device authentication key. In such scenario, the device would send his id in every payload and is identified in scriptr by that id.
 
 
-The default device data model is built from a template with the below default property values:
+The default device data model is built from a template with default property values:
 ```
    { //This device is a virtual model of a physical device
     "id":"myDevice",
@@ -49,14 +46,14 @@ The default device data model is built from a template with the below default pr
     "source": "simulator"
 }
 ```
-To edit the data of  myDevice you need to:
+To edit the property values of any of your scriptr account connected devices you can :
 - go to Tools > Data Explorer > Devices.
-- select your myDevice and edit the fields.
+- select your device and edit the fields.
 
-Whenever data arrives from the corresponding device, default properties values will be discarded.
+Default properties values will be discarded if new values are available in the device payload.
 
 ## Device Payload 
-The data communicated to scriptr.io account will be normalized into a specific data model used by the application. The "app/api/subscription/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
+The data communicated to scriptr.io account (the device payload) will be normalized into a specific data model used by the application. The "app/api/subscription/subscriber" script, tries to normalize the device payload through the available data transformations under app/config/<device-type>/dataTransformation script.
    ### Example
    Devices sends the below payload:
    ```
@@ -89,7 +86,8 @@ The data communicated to scriptr.io account will be normalized into a specific d
          "timestamp": "2019-02-12T18:07:05.605854Z"
       }
    ```
-
+The app/config/<device-type>/dataTransformation scripts contain a visual mapper which maps the payload properties to output the expected data model format expected by the application.
+   
 # How to view the application
 The installation API "app/install/auto.install.scriptr" needs to be executed once.
 
@@ -108,10 +106,11 @@ To visualize your device data in real-time, open the script "<app-theme>/view/ht
 - smartkitchen
 - livestockfitbit
 - smartcontainer
+- assettracking
 
 Zooming into the map and clicking on a marker will display an info window with the latest data the device has published. You can click on edit dashboard to view a detailed dashboard of a specific device.
 
-Clicking on alerts lists all the logged events from your devices.
+Clicking on alerts lists all the logged events alerts from your devices.
 
 As your device starts pushing data the dashboard and the map will reflect the new readings from your devices automatically.
 
@@ -171,9 +170,9 @@ Based on your selected entry point the below pages will be parsed with the appro
 - view/html/views/main/info_generic.html: this is an info window shown when clicking on a device marker on the map
 - /html/views/main/dashboard.html:  the dashboard that displays the latest values received from the Conduit device as well as the historical data (i.e. the different values through time)
 
-#### /view/html/views/alerts
+#### /view/html/
 - /view/html/views/alerts/alerts.html: grid that displays the list of alerts that were generated when receiving device data (alerts are generated depending on the business rules defined in "/entities/rules/alerts"
-- Columns displayed in the alerts grid are defined in the view/javascript/constants unders alertsGrid key
+- Columns displayed in the alerts grid are defined in the <app-theme>/view/javascript/constants unders alertsGrid key
 ```
    alertsGrid: [
       {headerName: "Temperature", field: "temperature", cellRenderer: function(params){return params.value + " °C"}},
