@@ -147,8 +147,8 @@ This folder contains two utility scripts for applying email templates.
 - /entities/actions/emailOnAlert: a simple script that applies an email template to some content, before sending it using scriptr.io's  built-in "sendMail()" function
 - /entities/actions/templates: simple email template definition for alerts
 
-## /entities/mapper
-This folder contains a script to cleanup the devices events data
+## /config
+This folder contains the application configuration
 - /cleanup/devicesEvents: a simple script that cleans up the events of all devices in order to keep the events number per device to 50 at all time on the scriptr.io free tier.
 
 ## /cleanup
