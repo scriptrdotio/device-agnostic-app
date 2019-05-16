@@ -6,4 +6,4 @@ This application is used by the following tutorials:
 - [Connecting the STM32L0 for LoRa to Scriptr.io using the MultiTech Conduit™](https://blog.scriptr.io/connecting-the-stm32l0-lora-to-scriptrio-using-multitech-conduit/)
 - [Getting started with the MultiConnect® Conduit™ IoT Starter Kit for LoRa® Technology and Scriptr.io](https://blog.scriptr.io/getting-started-multitech-conduit-and-scriptr-io/)
 
-Check the /app/README.md file for documentation about the application.
+Check the (/app/README.md)[https://github.com/scriptrdotio/device-agnostic-app/blob/master/app/Readme.md] file for documentation about the application.
