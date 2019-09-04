@@ -26,7 +26,8 @@ module.exports = function(grunt) {
 		                  'dashboard/frontend/components/map/map.html',
                           'dashboard/frontend/components/accelerometer/accelerometer.html',
 		                  'layout/frontend/components/header/header.html',
-		                  'layout/frontend/components/menu/menu.html'],
+		                  'layout/frontend/components/menu/menu.html',
+                    	  'dashboard/frontend/components/list/autocomplete.html'],
 		            dest :'build/javascript/uicomponents_templates.js',
 		            options : {
 		               bootstrap : function(module, script) {
@@ -79,6 +80,8 @@ module.exports = function(grunt) {
 		               'concat/min-safe/toggle_switch.js' : [ 'dashboard/frontend/components/toggleSwitch/toggle_switch.js' ],
                        'concat/min-safe/map.js' : [ 'dashboard/frontend/components/map/map.js' ],
 		               'concat/min-safe/angular_gridster.min.js':['dashboardBuilder/lib/gridster/angular_gridster.min.js'],
+                       'concat/min-safe/angucomplete.alt.js' :['dashboard/frontend/components/list/angucomplete.alt.js'],
+                       'concat/min-safe/autocomplete.js' :['dashboard/frontend/components/list/autocomplete.js'],
 		               'concat/min-safe/httpProvider.js' : [ 'httpProvider.js' ],
 		               'concat/min-safe/wsProvider.js' : [ 'wsProvider.js' ],
 		            }
@@ -107,6 +110,8 @@ module.exports = function(grunt) {
                        'concat/min-safe/accelerometer.js',
 		               'concat/min-safe/toggle_switch.js',
 		               'concat/min-safe/angular_gridster.min.js',
+                       'concat/min-safe/angucomplete.alt.js',
+                       'concat/min-safe/autocomplete.js',
 		               'concat/min-safe/httpProvider.js',
 		               'concat/min-safe/wsProvider.js',
 		            ],
@@ -125,6 +130,7 @@ module.exports = function(grunt) {
 	                  "dashboardBuilder/css/dashboard.css",
 	                  "dashboard/frontend/components/toggleSwitch/angular_toggle_switch.css",
 	                  "dashboard/frontend/components/button/button.css",
+               		  "dashboard/frontend/components/list/angucomplete.alt.css",
                       "dashboard/frontend/components/thermometer/style.css"
 	              ],
 	               dest : 'build/css/uicomponents_resources.css'
