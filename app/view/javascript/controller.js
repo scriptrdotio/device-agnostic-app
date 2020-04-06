@@ -221,10 +221,22 @@ myApp.controller('dashboardCtrl', function($scope,  wsClient, httpClient, $route
                 function(err) {
                     console.log('ERROR', error);
                 });
+            
+            httpClient.get("app/api/getDeviceHistory", vm.params).then(
+                function(data, response) {
+                    vm.consumeHistoricalData(data)
+                },
+                function(err) {
+                    console.log('ERROR', error);
+                });
         }
     }
 
 
+    vm.consumeHistoricalData = function(data) {
+        vm.historicalData = data;
+    }
+    
     vm.consumeData = function(data) {
         if(data.latest) {
             data = data.latest
