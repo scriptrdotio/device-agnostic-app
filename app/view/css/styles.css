@@ -53,7 +53,7 @@
 }
 
 /** map wrap ***/
-.map-wrap {bottom: 0; width: 100%; position: absolute; height: 100%;}
+.map-wrap {bottom: 0; width: 100%; position: absolute; height: 94%; top: 45px;}
 
 ng-map {
   width:100%; 
@@ -75,6 +75,7 @@ ng-map {
     padding: 5px 10px;
     box-shadow: 0 0 3px #777;
     min-height: 40px;
+    z-index: 20;
 }
 .autocomplete-wrap .loading {margin: 3px 0;}
 .autocomplete-wrap .angucomplete-dropdown {width: 98.9%;}

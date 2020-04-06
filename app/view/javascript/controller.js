@@ -37,6 +37,53 @@ myApp.controller('menuCtrl', function(headerItemsJson, menuItemsJson) {
     vm.headerItems = headerItemsJson;
     vm.user = JSON.parse($.cookie('user'));
     vm.menuItems = menuItemsJson;
+     
+});
+
+myApp.controller('searchDevicesCtrl', function($location, headerItemsJson, menuItemsJson, $route, $routeParams) {
+    var vm = this;
+    
+   vm.init = function() {
+         if($routeParams && $routeParams.deviceId) {
+             vm.selectedDevice = $routeParams.deviceId;
+             vm.params = {"id":  vm.deviceKey }
+             vm.tag = "dashboard_" +  vm.deviceKey;
+         }
+        
+    }
+    vm.listCallback = function(data){
+        vm.tripsData = [
+            {
+                "key" : "all",
+                "name" : "All"
+            }
+        ];
+        for(var i = 0; i < data.length; i++) {
+            vm.tripsData.push({"key": data[i].id, "name": data[i].id})
+        }
+        return vm.tripsData;
+    }
+     
+     
+     vm.onSelect = function(data){
+         if(data){
+            vm.selectedDevice = data.originalObject;
+            vm.params = {"id": vm.selectedDevice.key}
+        }
+         
+        if(vm.selectedDevice.key == "all") {
+            $location.path("/map");
+        } else {
+            if($routeParams.deviceId)
+                $route.updateParams({"deviceId": vm.selectedDevice.key});
+        	else 
+            	$location.path($route.current.originalPath + "/deviceId/" + vm.selectedDevice.key);
+        }
+         
+        return data;
+        
+     }
+     
 });
 
 myApp.controller('notificationCtrl', function(httpClient) {
